@@ -25,6 +25,11 @@ typedef enum e_error
 	EXIT_ERROR,
 }	t_error;
 
+void init(char *line);
+void clean_words(char **words);
+char **prompt(char *line);
+char **ft_split_delim(char *line, char *delimeters);
+
 void	ft_putstr_fd(char *str, int fd);
 void	error_handler(t_error error);
 size_t	is_quote(char c);
@@ -37,5 +42,7 @@ size_t	ft_strlen(char *str);
 size_t	ft_strchrs(char *delimiters, char character);
 size_t	count_tokens(char *line, char *delimeters);
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
+size_t	ft_strlcat(char *dst, char *src, size_t dstsize);
+
 
 #endif

@@ -36,7 +36,6 @@ size_t	count_tokens(char *line, char *delimeters)
 	size_t	i;
 	size_t	in_quote;
 
-	in_quote = 0;
 	count = 0;
 	i = 0;
 	while (line[i])
@@ -44,8 +43,8 @@ size_t	count_tokens(char *line, char *delimeters)
 		if (line[i] == '\'' || line[i] == '\"')
 		{
 			if (in_quote == 0)
-				in_quote = line[i];
-			else if (in_quote == line[i])
+				in_quote = is_quote(line[i]);
+			else if (in_quote == is_quote(line[i]))
 				in_quote = 0;
 			i++;
 		}
@@ -162,37 +161,4 @@ char **ft_split_delim(char *line, char *delimeters)
 		}
 	}
 	return (words);
-}
-
-int main()
-{
-	char *str;
-
-	while (1)
-	{
-		str = readline("Dojishell: ");
-		if (!str)
-			break;
-		if (ft_strlen(str) == 0)
-		{
-			free(str);
-			break;
-		}
-		char **words = ft_split_delim(str, " \t\n");
-		if (!words)
-		{
-			free(str);
-			break;
-		}
-		size_t i = 0;
-		while (words[i])
-		{
-			printf("Word %zu: %s\n", i, words[i]);
-			free(words[i]);
-			i++;
-		}
-		free(words);
-		free(str);
-	}
-	return (0);
 }

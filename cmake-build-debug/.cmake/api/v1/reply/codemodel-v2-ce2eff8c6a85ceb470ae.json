@@ -9,7 +9,7 @@
 					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.28"
+						"string" : "3.22.1"
 					},
 					"projectIndex" : 0,
 					"source" : ".",
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "minishell::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-minishell-Debug-6d9da3bca6c7dff69e7f.json",
+					"jsonFile" : "target-minishell-Debug-85995d490fd2b7ee75a5.json",
 					"name" : "minishell",
 					"projectIndex" : 0
 				}
@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/Users/jidoil/Documents/42/minishell/cmake-build-debug",
-		"source" : "/Users/jidoil/Documents/42/minishell"
+		"build" : "/home/doji/minishell/cmake-build-debug",
+		"source" : "/home/doji/minishell"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 6
+		"minor" : 3
 	}
 }

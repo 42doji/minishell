@@ -1,0 +1,1 @@
+/usr/bin/cc -g CMakeFiles/minishell.dir/srcs/tokenizer.c.o CMakeFiles/minishell.dir/srcs/error_handler.c.o CMakeFiles/minishell.dir/srcs/prompt_utils.c.o CMakeFiles/minishell.dir/srcs/main.c.o -o minishell 
