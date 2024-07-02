@@ -1,4 +1,8 @@
 #include "../includes/minishell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <readline/readline.h>
+
 
 size_t	ft_strlen(char *str)
 {
@@ -130,7 +134,7 @@ char **ft_split_delim(char *line, char *delimeters)
 	{
 		if (is_quote(line[current_idx]) && in_quote == 0)
 		{
-			in_quote = line[current_idx];
+			in_quote = 1;
 			start_idx = current_idx + 1;
 			current_idx++;
 			while (line[current_idx] && !is_quote(line[current_idx]))
@@ -162,14 +166,33 @@ char **ft_split_delim(char *line, char *delimeters)
 
 int main()
 {
-	char **words;
-	char *line = "echo \"hello world\" 42 > file.txt";
-	words = ft_split_delim(line, " \t\n");
-	for (size_t i = 0; words[i]; i++)
+	char *str;
+
+	while (1)
 	{
-		printf("%s\n", words[i]);
-		free(words[i]);
+		str = readline("Dojishell: ");
+		if (!str)
+			break;
+		if (ft_strlen(str) == 0)
+		{
+			free(str);
+			break;
+		}
+		char **words = ft_split_delim(str, " \t\n");
+		if (!words)
+		{
+			free(str);
+			break;
+		}
+		size_t i = 0;
+		while (words[i])
+		{
+			printf("Word %zu: %s\n", i, words[i]);
+			free(words[i]);
+			i++;
+		}
+		free(words);
+		free(str);
 	}
-	free(words);
 	return (0);
 }
