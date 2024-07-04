@@ -6,19 +6,17 @@
 
 int main(int argc, char **argv, char **envp)
 {
-	char **words;
-	char *line;
+	t_env_var	*env;
 
-	line = NULL;
+	env = init_env(envp);
+
 	(void)argc;
 	(void)argv;
-	(void)envp;
-	init(line);
-	while (1)
+	(void)env;
+	while (env->next)
 	{
-		words = prompt(line);
-		if (!words)
-			break;
+		printf("Key: %s\nValue: %s\n", env->key, env->value);
+		env = env->next;
 	}
 	return (0);
 }

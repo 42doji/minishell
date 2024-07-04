@@ -8,9 +8,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/doji/minishell/srcs/envp_utils.c" "CMakeFiles/minishell.dir/srcs/envp_utils.c.o" "gcc" "CMakeFiles/minishell.dir/srcs/envp_utils.c.o.d"
   "/home/doji/minishell/srcs/error_handler.c" "CMakeFiles/minishell.dir/srcs/error_handler.c.o" "gcc" "CMakeFiles/minishell.dir/srcs/error_handler.c.o.d"
   "/home/doji/minishell/srcs/main.c" "CMakeFiles/minishell.dir/srcs/main.c.o" "gcc" "CMakeFiles/minishell.dir/srcs/main.c.o.d"
   "/home/doji/minishell/srcs/prompt_utils.c" "CMakeFiles/minishell.dir/srcs/prompt_utils.c.o" "gcc" "CMakeFiles/minishell.dir/srcs/prompt_utils.c.o.d"
+  "/home/doji/minishell/srcs/quotes_utils.c" "CMakeFiles/minishell.dir/srcs/quotes_utils.c.o" "gcc" "CMakeFiles/minishell.dir/srcs/quotes_utils.c.o.d"
   "/home/doji/minishell/srcs/tokenizer.c" "CMakeFiles/minishell.dir/srcs/tokenizer.c.o" "gcc" "CMakeFiles/minishell.dir/srcs/tokenizer.c.o.d"
   )
 

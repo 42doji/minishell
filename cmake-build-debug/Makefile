@@ -129,6 +129,30 @@ minishell/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/build
 .PHONY : minishell/fast
 
+srcs/envp_utils.o: srcs/envp_utils.c.o
+.PHONY : srcs/envp_utils.o
+
+# target to build an object file
+srcs/envp_utils.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/envp_utils.c.o
+.PHONY : srcs/envp_utils.c.o
+
+srcs/envp_utils.i: srcs/envp_utils.c.i
+.PHONY : srcs/envp_utils.i
+
+# target to preprocess a source file
+srcs/envp_utils.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/envp_utils.c.i
+.PHONY : srcs/envp_utils.c.i
+
+srcs/envp_utils.s: srcs/envp_utils.c.s
+.PHONY : srcs/envp_utils.s
+
+# target to generate assembly for a file
+srcs/envp_utils.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/envp_utils.c.s
+.PHONY : srcs/envp_utils.c.s
+
 srcs/error_handler.o: srcs/error_handler.c.o
 .PHONY : srcs/error_handler.o
 
@@ -201,6 +225,30 @@ srcs/prompt_utils.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/prompt_utils.c.s
 .PHONY : srcs/prompt_utils.c.s
 
+srcs/quotes_utils.o: srcs/quotes_utils.c.o
+.PHONY : srcs/quotes_utils.o
+
+# target to build an object file
+srcs/quotes_utils.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/quotes_utils.c.o
+.PHONY : srcs/quotes_utils.c.o
+
+srcs/quotes_utils.i: srcs/quotes_utils.c.i
+.PHONY : srcs/quotes_utils.i
+
+# target to preprocess a source file
+srcs/quotes_utils.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/quotes_utils.c.i
+.PHONY : srcs/quotes_utils.c.i
+
+srcs/quotes_utils.s: srcs/quotes_utils.c.s
+.PHONY : srcs/quotes_utils.s
+
+# target to generate assembly for a file
+srcs/quotes_utils.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/quotes_utils.c.s
+.PHONY : srcs/quotes_utils.c.s
+
 srcs/tokenizer.o: srcs/tokenizer.c.o
 .PHONY : srcs/tokenizer.o
 
@@ -234,6 +282,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... minishell"
+	@echo "... srcs/envp_utils.o"
+	@echo "... srcs/envp_utils.i"
+	@echo "... srcs/envp_utils.s"
 	@echo "... srcs/error_handler.o"
 	@echo "... srcs/error_handler.i"
 	@echo "... srcs/error_handler.s"
@@ -243,6 +294,9 @@ help:
 	@echo "... srcs/prompt_utils.o"
 	@echo "... srcs/prompt_utils.i"
 	@echo "... srcs/prompt_utils.s"
+	@echo "... srcs/quotes_utils.o"
+	@echo "... srcs/quotes_utils.i"
+	@echo "... srcs/quotes_utils.s"
 	@echo "... srcs/tokenizer.o"
 	@echo "... srcs/tokenizer.i"
 	@echo "... srcs/tokenizer.s"

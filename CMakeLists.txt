@@ -7,4 +7,6 @@ add_executable(minishell
         srcs/tokenizer.c
         srcs/error_handler.c
         srcs/prompt_utils.c
-        srcs/main.c)
+        srcs/main.c
+        srcs/quotes_utils.c
+        srcs/envp_utils.c)

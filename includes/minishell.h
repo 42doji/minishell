@@ -25,6 +25,13 @@ typedef enum e_error
 	EXIT_ERROR,
 }	t_error;
 
+typedef struct	s_env_var
+{
+	struct s_env_var	*next;
+	char				*key;
+	char				*value;
+}	t_env_var;
+
 void init(char *line);
 void clean_words(char **words);
 char **prompt(char *line);
@@ -43,6 +50,19 @@ size_t	ft_strchrs(char *delimiters, char character);
 size_t	count_tokens(char *line, char *delimeters);
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, char *src, size_t dstsize);
+
+
+/* env_utils.c */
+t_env_var	*init_env(char **envp);
+char		*get_env_value(t_env_var *env, const char *key);
+void		set_env_value(t_env_var **env, const char *key, const char *value);
+void		free_env(t_env_var *env);
+void		delete_env_var(t_env_var **env, const char *key);
+void		append_env_var(t_env_var **env, const char *key, const char *value);
+void		replace_env_var(t_env_var **env, const char *key, const char *value);
+void		print_env_var(t_env_var *env, const char *key);
+void		print_env(t_env_var *env);
+
 
 
 #endif

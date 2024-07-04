@@ -8,7 +8,7 @@ LIBFT_DIR=libft
 LIBFT=$(LIBFT_DIR)/libft.a
 SRCS=	$(SRCS_DIR)/main.c $(SRCS_DIR)/error_handler.c $(SRCS_DIR)/input_utils.c \
 		$(SRCS_DIR)/prompt_utils.c $(SRCS_DIR)/quotes_utils.c $(SRCS_DIR)/tokenizer.c \
-		$(SRCS_DIR)/init_utils.c
+		$(SRCS_DIR)/init_utils.c $(SRCS_DIR)/envp_utils.c
 OBJS=$(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 INCLUDES=$(INCLUDES_DIR)/minishell.h
 LIBS=-lreadline
