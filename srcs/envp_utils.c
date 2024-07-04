@@ -1,5 +1,23 @@
 #include "../includes/minishell.h"
 
+char *ft_strndup(const char *s, size_t n)
+{
+	char	*new_str;
+	size_t	i;
+
+	new_str = malloc(n + 1);
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	while (i < n)
+	{
+		new_str[i] = s[i];
+		i++;
+	}
+	new_str[i] = '\0';
+	return (new_str);
+}
+
 t_env_var *init_env(char **envp)
 {
 	t_env_var	*head;
@@ -12,12 +30,12 @@ t_env_var *init_env(char **envp)
 	head = NULL;
 	while (envp[i])
 	{
-		equal_sign = strchr(envp[i], '=');
+		equal_sign = ft_strchr(envp[i], '=');
 		if (equal_sign)
 		{
 			new_var = malloc(sizeof(t_env_var));
-			new_var->key = strndup(envp[i], equal_sign - envp[i]); //
-			new_var->value = strdup(equal_sign + 1);
+			new_var->key = ft_strndup(envp[i], equal_sign - envp[i]); //
+			new_var->value = ft_strdup(equal_sign + 1);
 			new_var->next = NULL;
 			if (!head)
 				head = new_var;
@@ -54,14 +72,14 @@ void	set_env_value(t_env_var **env, const char *key, const char *value)
 		if (strcmp(current->key, key) == 0)
 		{
 			free(current->value);
-			current->value = strdup(value);
+			current->value = ft_strdup(value);
 			return ;
 		}
 		current = current->next;
 	}
 	current = malloc(sizeof(t_env_var));
-	current->key = strdup(key);
-	current->value = strdup(value);
+	current->key = ft_strdup(key);
+	current->value = ft_strdup(value);
 	current->next = *env;
 	*env = current;
 }
@@ -127,8 +145,8 @@ void append_env_var(t_env_var **env, const char *key, const char *value)
 
 	current = *env;
 	new_var = malloc(sizeof(t_env_var));
-	new_var->key = strdup(key);
-	new_var->value = strdup(value);
+	new_var->key = ft_strdup(key);
+	new_var->value = ft_strdup(value);
 	new_var->next = NULL;
 	if (!current)
 	{
@@ -147,10 +165,10 @@ void replace_env_var(t_env_var **env, const char *key, const char *value)
 	current = *env;
 	while (current)
 	{
-		if (strcmp(current->key, key) == 0)
+		if (ft_strcmp(current->key, key) == 0)
 		{
 			free(current->value);
-			current->value = strdup(value);
+			current->value = ft_strdup(value);
 			return ;
 		}
 		current = current->next;
