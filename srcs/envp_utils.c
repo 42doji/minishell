@@ -175,3 +175,29 @@ void replace_env_var(t_env_var **env, const char *key, const char *value)
 	}
 	append_env_var(env, key, value);
 }
+
+void cd_command(char **args, t_env_var **env)
+{
+	char *old_path;
+	char *new_path;
+
+	if (!args[1] || args[2])
+	{
+		printf("cd: wrong number of arguments\n");
+		return ;
+	}
+	old_path = getcwd(NULL, 0);
+	if (chdir(args[1]) == 0)
+	{
+		new_path = getcwd(NULL, 0);
+		set_env_value(env, "OLDPWD", old_path);
+		set_env_value(env, "PWD", new_path);
+		free(old_path);
+		free(new_path);
+	}
+	else
+	{
+		perror("cd");
+		free(old_path);
+	}
+}
