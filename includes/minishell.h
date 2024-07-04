@@ -2,10 +2,13 @@
 # define MINISHELL_MINISHELL_H
 
 # include <stdio.h>
+# include <string.h>
+# include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 
 typedef enum e_error
 {
@@ -50,6 +53,14 @@ size_t	ft_strchrs(char *delimiters, char character);
 size_t	count_tokens(char *line, char *delimeters);
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, char *src, size_t dstsize);
+size_t	ft_strncmp(char *s1, char *s2, size_t n);
+char	*ft_strchr(char *str, char c);
+char	*ft_strstr(const char *haystack, const char *needle);
+size_t ft_strncpy(char *dst, char *src, size_t n);
+size_t ft_strcpy(char *dst, char *src);
+
+char	*ft_strdup(const char *s);
+
 
 
 /* env_utils.c */
@@ -64,5 +75,25 @@ void		print_env_var(t_env_var *env, const char *key);
 void		print_env(t_env_var *env);
 
 
+/* bulitins.c */
+void echo(char **comm);
+void print_history(void);
+
+/* builtin_exit_status.c */
+int		last_exit_status;
+void	update_last_exit_status(int status);
+char	*expand_exit_status(char *command);
+
+/* pwd.c */
+void pwd(void);
+
+/* signal_handler.c */
+void handle_sigint(int sig);
+void handle_sigquit(int sig);
+void handle_eof(void);
+void init_signal_handlers(void);
+
+/* libft */
+int ft_strcmp(const char *s1, const char *s2);
 
 #endif

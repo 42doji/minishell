@@ -9,4 +9,6 @@ add_executable(minishell
         srcs/prompt_utils.c
         srcs/main.c
         srcs/quotes_utils.c
-        srcs/envp_utils.c)
+        srcs/envp_utils.c
+        srcs/builtin_echo.c
+        srcs/signal_handler.c)

@@ -129,6 +129,30 @@ minishell/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/build
 .PHONY : minishell/fast
 
+srcs/builtin_echo.o: srcs/builtin_echo.c.o
+.PHONY : srcs/builtin_echo.o
+
+# target to build an object file
+srcs/builtin_echo.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/builtin_echo.c.o
+.PHONY : srcs/builtin_echo.c.o
+
+srcs/builtin_echo.i: srcs/builtin_echo.c.i
+.PHONY : srcs/builtin_echo.i
+
+# target to preprocess a source file
+srcs/builtin_echo.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/builtin_echo.c.i
+.PHONY : srcs/builtin_echo.c.i
+
+srcs/builtin_echo.s: srcs/builtin_echo.c.s
+.PHONY : srcs/builtin_echo.s
+
+# target to generate assembly for a file
+srcs/builtin_echo.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/builtin_echo.c.s
+.PHONY : srcs/builtin_echo.c.s
+
 srcs/envp_utils.o: srcs/envp_utils.c.o
 .PHONY : srcs/envp_utils.o
 
@@ -249,6 +273,30 @@ srcs/quotes_utils.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/quotes_utils.c.s
 .PHONY : srcs/quotes_utils.c.s
 
+srcs/signal_handler.o: srcs/signal_handler.c.o
+.PHONY : srcs/signal_handler.o
+
+# target to build an object file
+srcs/signal_handler.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/signal_handler.c.o
+.PHONY : srcs/signal_handler.c.o
+
+srcs/signal_handler.i: srcs/signal_handler.c.i
+.PHONY : srcs/signal_handler.i
+
+# target to preprocess a source file
+srcs/signal_handler.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/signal_handler.c.i
+.PHONY : srcs/signal_handler.c.i
+
+srcs/signal_handler.s: srcs/signal_handler.c.s
+.PHONY : srcs/signal_handler.s
+
+# target to generate assembly for a file
+srcs/signal_handler.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/signal_handler.c.s
+.PHONY : srcs/signal_handler.c.s
+
 srcs/tokenizer.o: srcs/tokenizer.c.o
 .PHONY : srcs/tokenizer.o
 
@@ -282,6 +330,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... minishell"
+	@echo "... srcs/builtin_echo.o"
+	@echo "... srcs/builtin_echo.i"
+	@echo "... srcs/builtin_echo.s"
 	@echo "... srcs/envp_utils.o"
 	@echo "... srcs/envp_utils.i"
 	@echo "... srcs/envp_utils.s"
@@ -297,6 +348,9 @@ help:
 	@echo "... srcs/quotes_utils.o"
 	@echo "... srcs/quotes_utils.i"
 	@echo "... srcs/quotes_utils.s"
+	@echo "... srcs/signal_handler.o"
+	@echo "... srcs/signal_handler.i"
+	@echo "... srcs/signal_handler.s"
 	@echo "... srcs/tokenizer.o"
 	@echo "... srcs/tokenizer.i"
 	@echo "... srcs/tokenizer.s"

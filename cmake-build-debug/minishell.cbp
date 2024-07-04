@@ -76,6 +76,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/doji/minishell/srcs/builtin_echo.c">
+			<Option target="minishell"/>
+		</Unit>
 		<Unit filename="/home/doji/minishell/srcs/envp_utils.c">
 			<Option target="minishell"/>
 		</Unit>
@@ -89,6 +92,9 @@
 			<Option target="minishell"/>
 		</Unit>
 		<Unit filename="/home/doji/minishell/srcs/quotes_utils.c">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/home/doji/minishell/srcs/signal_handler.c">
 			<Option target="minishell"/>
 		</Unit>
 		<Unit filename="/home/doji/minishell/srcs/tokenizer.c">

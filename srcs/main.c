@@ -13,10 +13,13 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	(void)env;
-	while (env->next)
-	{
-		printf("Key: %s\nValue: %s\n", env->key, env->value);
-		env = env->next;
-	}
+	char	*line[10] = {"echo","-n", "Hello", "World", NULL};
+	char	*line2[10] = {"echo", "Hello", "World", NULL};
+
+	printf("line2: ");
+	echo(line2);
+	printf("line1: ");
+	echo(line);
+	print_history();
 	return (0);
 }

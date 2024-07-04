@@ -8,7 +8,8 @@ LIBFT_DIR=libft
 LIBFT=$(LIBFT_DIR)/libft.a
 SRCS=	$(SRCS_DIR)/main.c $(SRCS_DIR)/error_handler.c $(SRCS_DIR)/input_utils.c \
 		$(SRCS_DIR)/prompt_utils.c $(SRCS_DIR)/quotes_utils.c $(SRCS_DIR)/tokenizer.c \
-		$(SRCS_DIR)/init_utils.c $(SRCS_DIR)/envp_utils.c
+		$(SRCS_DIR)/init_utils.c $(SRCS_DIR)/envp_utils.c $(SRCS_DIR)/builtin_echo.c \
+		$(SRCS_DIR)/builtin_history.c $(SRCS_DIR)/builtin_pwd.c $(SRCS_DIR)/builtin_cd.c \
 OBJS=$(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 INCLUDES=$(INCLUDES_DIR)/minishell.h
 LIBS=-lreadline
@@ -22,7 +23,7 @@ $(NAME): $(OBJS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(INCLUDES)
 	@mkdir -p $(OBJS_DIR)
-	$(CC) $(CFLAGS) -c -o $@ $< -I $(INCLUDES_DIR)
+	$(CC) $(CFLAGS) -c -o $@ $< -I $(INCLUDES_DIR) -I $(LIBFT_DIR)/includes
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean

@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/minishell.dir/srcs/builtin_echo.c.o"
+  "CMakeFiles/minishell.dir/srcs/builtin_echo.c.o.d"
   "CMakeFiles/minishell.dir/srcs/envp_utils.c.o"
   "CMakeFiles/minishell.dir/srcs/envp_utils.c.o.d"
   "CMakeFiles/minishell.dir/srcs/error_handler.c.o"
@@ -9,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/minishell.dir/srcs/prompt_utils.c.o.d"
   "CMakeFiles/minishell.dir/srcs/quotes_utils.c.o"
   "CMakeFiles/minishell.dir/srcs/quotes_utils.c.o.d"
+  "CMakeFiles/minishell.dir/srcs/signal_handler.c.o"
+  "CMakeFiles/minishell.dir/srcs/signal_handler.c.o.d"
   "CMakeFiles/minishell.dir/srcs/tokenizer.c.o"
   "CMakeFiles/minishell.dir/srcs/tokenizer.c.o.d"
   "minishell"

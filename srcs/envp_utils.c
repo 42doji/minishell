@@ -157,20 +157,3 @@ void replace_env_var(t_env_var **env, const char *key, const char *value)
 	}
 	append_env_var(env, key, value);
 }
-
-void print_env_var(t_env_var *env, const char *key)
-{
-	t_env_var *current;
-
-	current = env;
-	while (current)
-	{
-		if (strcmp(current->key, key) == 0)
-		{
-			printf("%s=%s\n", current->key, current->value);
-			return ;
-		}
-		current = current->next;
-	}
-	printf("No such variable: %s\n", key);
-}
