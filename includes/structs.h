@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 19:40:19 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/08 19:43:30 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/08 22:48:41 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define READ_END 0
 # define WRITE_END 1
 
-enum	e_token_type
+typedef enum e_token_type
 {
 	PIPE = 0,
 	GREATER = 1,
@@ -25,7 +25,7 @@ enum	e_token_type
 	STRING = 5,
 }	t_token_type;
 
-enum	e_error
+typedef enum e_error
 {
 	FILE_NOT_FOUND = 1,
 	SYNTAX_ERROR = 2,

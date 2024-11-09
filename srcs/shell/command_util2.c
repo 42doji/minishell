@@ -37,3 +37,22 @@ void	update_env_path(void)
 		g_minishell.paths = ft_split(path, ':');
 	free(path);
 }
+
+int is_valid_digit_count(char *arg)
+{
+    int len;
+    
+    len = 0;
+    if (*arg == '+' || *arg == '-')
+        arg++;
+    while (*arg == '0')
+        arg++;
+    while (*arg >= '0' && *arg <= '9')
+    {
+        len++;
+        arg++;
+    }
+    if (*arg != '\0' || len > 19)
+        return (0);
+    return (1);
+}

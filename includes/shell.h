@@ -57,6 +57,7 @@ void		sort_and_print(void);
 int			check_for_equal_sign(char *str, int *error);
 int			check_while_n(char **input, int *i, int *a);
 int			has_env(char *str);
+int			is_valid_digit_count(char *arg);
 
 void		update_env_path(void);
 void		print_error(char *arg, char *message, int exit_status);

@@ -32,34 +32,34 @@ void	execute(char *full_path, char **args)
 	}
 }
 
+
 static char	*ft_strtok(char *str, char delimeter)
 {
-	int			i;
 	static char	*old_str;
+	static char	*prev_str;
 	char		*new_str;
-
+	int			i;
+	
+	if (prev_str)
+		free(prev_str);
 	if (str != NULL)
 		old_str = str;
 	if (old_str == NULL)
 		return (NULL);
+	while (*old_str && *old_str == delimeter)
+		old_str++;
 	i = 0;
-	while (1)
-	{
-		if (old_str[i] == delimeter)
-		{
-			new_str = ft_substr(old_str, 0, i);
-			old_str = ft_strchr(old_str, delimeter) + 1;
-			return (new_str);
-		}
-		else if (old_str[i] == '\0')
-		{
-			new_str = ft_substr(old_str, 0, i);
-			old_str = NULL;
-			return (new_str);
-		}
+	while (old_str[i] && old_str[i] != delimeter)
 		i++;
-	}
+	new_str = ft_substr(old_str, 0, i);
+	prev_str = new_str;
+	if (old_str[i] != '\0')
+		old_str = old_str + i + 1;
+	else
+		old_str = NULL;
+	return (new_str);
 }
+
 
 static char	*search_path(char *arg, char *path)
 {

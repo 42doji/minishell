@@ -96,26 +96,28 @@ static void	save_token(char *str)
 {
 	int	i;
 	int	j;
+	int start;
 
 	i = 0;
-	while (g_minishell.index <= g_minishell.n_tokens)
+	while (g_minishell.index < g_minishell.n_tokens)
 	{
+		start = i;
 		while (str[i] && str[i] == ' ')
 			i++;
+		j = i;
 		if (str[i] && str[i] != ' ')
 		{
-			j = i;
 			i = save_token_special(str, i);
-			g_minishell.input[g_minishell.index] = ft_substr(str, j, (i - j)
-					+ 1);
+			if (g_minishell.index == 0 && start != j)
+				g_minishell.input[g_minishell.index] = ft_substr(str, start, (i - start) + 1);
+			else
+				g_minishell.input[g_minishell.index] = ft_substr(str, j, (i - j) + 1);
 		}
+		
 		if (str[i] == '\0')
 			break ;
-		else
-		{
-			g_minishell.index++;
-			i++;
-		}
+		g_minishell.index++;
+		i++;
 	}
 }
 

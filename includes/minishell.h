@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 19:39:50 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/08 19:39:52 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/08 22:44:45 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
-# define PROMPT "minishell $ "
+# define PROMPT "minishell$ "
 
 #endif

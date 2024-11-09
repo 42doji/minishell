@@ -57,16 +57,22 @@ static void	check_exit_args(char **input, int count)
 	}
 }
 
-static int	get_count_signal(char *arg)
+static int get_number_signal(char *arg)
 {
-	while (*arg)
-	{
-		if ((*arg >= '0' && *arg <= '9') || *arg == '+' || *arg == '-')
-			arg++;
-		else
-			return (0);
-	}
-	return (1);
+    long long   num;
+    
+    if (!is_valid_digit_count(arg))
+        return (0);
+    num = 0;
+    if (*arg == '+' || *arg == '-')
+        arg++;
+    while (*arg)
+    {
+        if (num > (LLONG_MAX - (*arg - '0')) / 10)
+            return (0);
+        num = num * 10 + (*arg++ - '0');
+    }
+    return (1);
 }
 
 void	command_exit(char **input)
@@ -78,7 +84,7 @@ void	command_exit(char **input)
 		exit_the_shell(count);
 	else
 	{
-		if (get_count_signal(input[1]))
+		if (get_number_signal(input[1]))
 		{
 			check_exit_args(input, count);
 		}

@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:42:37 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/08 16:27:34 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/08 22:39:15 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,9 +134,9 @@ void	search_env_var(char **str)
 		{
 			check_str = check_string(str[i], &j);
 			new_str = ft_strjoin(temp, check_str);
-			temp = ft_strdup(new_str);
+			free(temp);
+			temp = new_str;
 			free(check_str);
-			free(new_str);
 		}
 		replace_string(&str[i], &temp);
 		i++;

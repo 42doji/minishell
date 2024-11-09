@@ -20,8 +20,8 @@ endif
 
 NAME = minishell
 LIBFT = ./libft/libft.a
-INCLUDES = includes -I/usr/local/opt/readline/include 
-LIBS = -ltermcap -lncurses -lreadline -L/usr/local/opt/readline/lib
+INCLUDES = includes
+LIBS = -ltermcap -lncurses -lreadline
 
 SRC = 	./srcs/shell/command.c \
 		./srcs/shell/command_cd.c \
