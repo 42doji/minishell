@@ -6,13 +6,11 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 12:54:24 by doji              #+#    #+#             */
-/*   Updated: 2024/11/08 19:46:48 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:16:38 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern t_minishell	g_minishell;
 	
 static void	check_n_option(char **input, int *i, int *flag)
 {
@@ -61,5 +59,5 @@ void	command_echo(char **input)
 	}
 	if (flag == 0 || input[1] == NULL)
 		write(STDOUT_FILENO, "\n", 1);
-	g_minishell.exit_status = 0;
+	g_exit_status = 0;
 }

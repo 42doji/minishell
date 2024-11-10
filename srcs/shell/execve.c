@@ -6,13 +6,11 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 10:35:27 by doji              #+#    #+#             */
-/*   Updated: 2024/11/08 19:46:57 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:13:10 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern t_minishell	g_minishell;
 
 void	execute(char *full_path, char **args)
 {
@@ -100,7 +98,7 @@ void	execute_execve(char **args)
 	if (path == NULL)
 	{
 		print_error(args[0], ": No such file or directory\n", 127);
-		exit(g_minishell.exit_status);
+		exit(g_exit_status);
 	}
 	if (check_if_path(args[0]) == 0)
 	{
@@ -108,7 +106,7 @@ void	execute_execve(char **args)
 		if (total == NULL)
 		{
 			free(path);
-			exit(g_minishell.exit_status);
+			exit(g_exit_status);
 		}
 		else
 			execute(total, args);

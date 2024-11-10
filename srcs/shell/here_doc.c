@@ -6,11 +6,13 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 21:15:05 by doji              #+#    #+#             */
-/*   Updated: 2024/11/08 19:48:37 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:11:29 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int g_exit_status;
 
 static void	write_here_doc(int pipe_fd, char *str)
 {
@@ -44,10 +46,10 @@ static void	parent_process(int p[2], t_command *cmd, t_file **f, t_fd **fd)
 {
 	close(p[1]);
 	igonre_signal();
-	while (waitpid(0, &g_minishell.exit_status, 0) > 0)
+	while (waitpid(0, &g_exit_status, 0) > 0)
 		continue ;
-	if (WIFEXITED(g_minishell.exit_status))
-		g_minishell.exit_status = WEXITSTATUS(g_minishell.exit_status);
+	if (WIFEXITED(g_exit_status))
+		g_exit_status = WEXITSTATUS(g_exit_status);
 	dup2(cmd->out_file, STDOUT_FILENO);
 	dup2(p[0], STDIN_FILENO);
 	close(p[0]);
@@ -88,7 +90,7 @@ void	here_doc(t_command *command, t_file **file, t_fd **fd)
 		close(pipe_fd[1]);
 		free_all(g_minishell.str);
 		free_path_and_env();
-		exit(g_minishell.exit_status);
+		exit(g_exit_status);
 	}
 	else
 		parent_process(pipe_fd, command, file, fd);

@@ -6,13 +6,11 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 12:20:20 by doji              #+#    #+#             */
-/*   Updated: 2024/11/08 19:46:57 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:12:39 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern t_minishell	g_minishell;
 
 void	append(t_command *command, t_file **file)
 {

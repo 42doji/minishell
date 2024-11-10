@@ -6,13 +6,13 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:35:27 by doji              #+#    #+#             */
-/*   Updated: 2024/11/08 19:46:48 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:15:40 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_minishell	g_minishell;
+extern int	g_exit_status;
 
 static int	check_env_var(char *str, int *error)
 {
@@ -43,7 +43,7 @@ void	command_export(char **input)
 {
 	int	tmp;
 
-	g_minishell.exit_status = 0;
+	g_exit_status = 0;
 	if (input[1] == NULL)
 	{
 		sort_and_print();

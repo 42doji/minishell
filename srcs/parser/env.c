@@ -6,13 +6,13 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:42:37 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/08 22:39:15 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:18:44 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_minishell	g_minishell;
+extern int	g_exit_status;
 
 char	*env_var(char *env, int index)
 {
@@ -45,7 +45,7 @@ static char	*check_exit_status(char *str, int *i)
 	if (str[*i] == '?')
 	{
 		(*i)++;
-		return (ft_itoa(g_minishell.exit_status));
+		return (ft_itoa(g_exit_status));
 	}
 	else if (str[*i] == '\0')
 	{

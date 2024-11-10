@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 19:40:19 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/08 22:48:41 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:06:26 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ typedef struct s_minishell
 	int						flag;
 	int						flag2;
 	int						pipe_flag;
-	int						exit_status;
 	char					*old_pwd;
 	char					*str;
 	char					**env;
@@ -118,6 +117,6 @@ typedef struct s_minishell
 	t_command				**parsed;
 }	t_minishell;
 
-extern t_minishell	g_minishell;
+extern int	g_exit_status;
 
 #endif

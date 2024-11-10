@@ -6,13 +6,11 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:51:04 by doji              #+#    #+#             */
-/*   Updated: 2024/11/08 19:47:38 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:12:49 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern t_minishell	g_minishell;
 
 char	*char_to_string(char c)
 {

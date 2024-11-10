@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:45:11 by doji              #+#    #+#             */
-/*   Updated: 2024/11/08 19:46:48 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:16:21 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	command_env(char **args)
 		return ;
 	}
 	else
-		g_minishell.exit_status = 0;
+		g_exit_status = 0;
 	sort_env_variables(env);
 	while (*env)
 	{

@@ -6,13 +6,11 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:43:56 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/08 19:51:35 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:17:19 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern t_minishell	g_minishell;
 
 static void	create_out_dup_list(void)
 {

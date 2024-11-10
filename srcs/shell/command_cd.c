@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:35:35 by doji              #+#    #+#             */
-/*   Updated: 2024/11/08 19:49:21 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:16:49 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	go_dir_home(void)
 	path = get_env("HOME");
 	get_current_cwd();
 	if (chdir(path) == 0)
-		g_minishell.exit_status = 0;
+		g_exit_status = 0;
 	else
 		print_error(NULL, "error: Home directory not found.\n", 1);
 	free(path);
@@ -73,7 +73,7 @@ void	command_cd(char **input)
 			print_error(NULL, "error: failed to change directory.\n", 1);
 			return ;
 		}
-		g_minishell.exit_status = 0;
+		g_exit_status = 0;
 		update_pwd();
 	}
 	else

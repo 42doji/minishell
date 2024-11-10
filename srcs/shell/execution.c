@@ -6,13 +6,13 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 19:54:11 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/08 19:54:12 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:12:35 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_minishell	g_minishell;
+extern int	g_exit_status;
 
 static void	return_fd(void)
 {
@@ -66,7 +66,7 @@ void	execve_or_builtin(char **args)
 		if (status != 0)
 		{
 			execute_builtin_command(args);
-			exit(g_minishell.exit_status);
+			exit(g_exit_status);
 		}
 		else
 			execute_execve(args);
@@ -87,14 +87,14 @@ static void	check_command(t_command **temp, t_fd **fd)
 	}
 	else
 		execute_command(temp[0], temp[0]->file, fd);
-	while (waitpid(0, &g_minishell.exit_status, 0) > 0)
+	while (waitpid(0, &g_exit_status, 0) > 0)
 		continue ;
 	if (status == 0)
 	{
-		if (WIFEXITED(g_minishell.exit_status))
-			g_minishell.exit_status = WEXITSTATUS(g_minishell.exit_status);
+		if (WIFEXITED(g_exit_status))
+			g_exit_status = WEXITSTATUS(g_exit_status);
 		else
-			g_minishell.exit_status = 130;
+			g_exit_status = 130;
 	}
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ctrl_c);

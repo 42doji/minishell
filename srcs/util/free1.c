@@ -6,13 +6,11 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 10:45:38 by doji              #+#    #+#             */
-/*   Updated: 2024/11/08 19:46:57 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:12:47 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern t_minishell	g_minishell;
 
 void	free_minishell(void)
 {

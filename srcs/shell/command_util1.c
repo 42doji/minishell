@@ -6,13 +6,11 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:24:06 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/08 19:49:04 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:19:14 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern t_minishell	g_minishell;
 
 int	has_env(char *str)
 {
@@ -79,7 +77,6 @@ void	swap_strings(char **a, char **b)
 	*b = temp;
 }
 
-// sort env variables
 void	sort_env_variables(char **env)
 {
 	int	count;

@@ -6,13 +6,11 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 18:42:53 by filipa            #+#    #+#             */
-/*   Updated: 2024/11/08 19:46:57 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:12:48 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern t_minishell	g_minishell;
 
 char	*get_env(char *var_name)
 {

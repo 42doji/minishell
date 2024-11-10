@@ -6,13 +6,11 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:40:25 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/08 18:43:26 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:19:13 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern t_minishell	g_minishell;
 
 int	get_env_count(void)
 {

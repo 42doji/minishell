@@ -6,13 +6,11 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:01:01 by doji              #+#    #+#             */
-/*   Updated: 2024/11/08 19:52:38 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:17:32 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern t_minishell	g_minishell;
 
 int	check_pipe(char *str, t_token *token)
 {

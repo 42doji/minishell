@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 10:26:56 by doji              #+#    #+#             */
-/*   Updated: 2024/11/08 19:46:57 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:12:50 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ void	create_minishell(char **ev)
 	errno = 0;
 	g_minishell.env = dup_env_var(ev);
 	g_minishell.paths = ft_split(getenv("PATH"), ':');
-	g_minishell.exit_status = 0;
 	g_minishell.token = NULL;
 	g_minishell.parsed = NULL;
 	g_minishell.fd = NULL;
-	g_minishell.exit_status = 0;
 	g_minishell.error = 0;
 }

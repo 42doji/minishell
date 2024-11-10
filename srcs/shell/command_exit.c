@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:32:43 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/08 18:51:04 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:16:08 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	exit_the_shell(int count)
 		printf("exit\n");
 		free_all(g_minishell.str);
 		free_path_and_env();
-		exit(g_minishell.exit_status);
+		exit(g_exit_status);
 	}
 }
 
@@ -47,12 +47,12 @@ static void	check_exit_args(char **input, int count)
 	}
 	else
 	{
-		g_minishell.exit_status = ft_atoi(input[1]) % 256;
+		g_exit_status = ft_atoi(input[1]) % 256;
 		if (count == 1)
 		{
 			free_all(g_minishell.str);
 			free_path_and_env();
-			exit(g_minishell.exit_status);
+			exit(g_exit_status);
 		}
 	}
 }

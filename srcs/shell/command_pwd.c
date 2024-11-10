@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:35:54 by doji              #+#    #+#             */
-/*   Updated: 2024/11/08 19:46:48 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:15:09 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	command_pwd(void)
 		print_error(NULL, "error: no such file or directory.\n", 127);
 	else
 	{
-		g_minishell.exit_status = 0;
+		g_exit_status = 0;
 		printf("%s\n", current_dir);
 	}
 	free(current_dir);

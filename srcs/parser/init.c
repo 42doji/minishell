@@ -6,13 +6,11 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:43:27 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/08 16:58:27 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:17:55 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern t_minishell	g_minishell;
 
 static void	create_new_array(char **temp)
 {

@@ -6,13 +6,11 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:43:34 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/08 16:19:31 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:17:42 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern t_minishell	g_minishell;
 
 static int	save_token_special(char *str, int i)
 {

@@ -6,13 +6,13 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:00:53 by filipa            #+#    #+#             */
-/*   Updated: 2024/11/08 19:46:57 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 11:19:03 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_minishell	g_minishell;
+int	g_exit_status;
 
 int	check_if_empty(char *str)
 {
@@ -30,7 +30,8 @@ int	check_if_empty(char *str)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*str;
+	char		*str;
+	t_minishell	mini;
 
 	(void)argc;
 	(void)argv;
