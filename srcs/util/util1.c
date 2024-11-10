@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 18:42:53 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 14:43:01 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 16:19:29 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	free_array(char **arr)
 	free(arr);
 }
 
-int	is_whitespace(char c)
+int	is_ifs(char c)
 {
-	return (c == ' ' || c == '\t');
+	return (c == ' ' || c == '\t' || c == '\n');
 }
 
 static int	has_string_char(const char *s, char c)

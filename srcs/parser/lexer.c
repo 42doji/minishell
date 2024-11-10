@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:43:34 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 13:37:39 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 16:19:29 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	save_token_special(char *str, int i)
 {
-	while (str[i] && str[i] != ' ')
+	while (str[i] && !is_ifs(str[i]))
 	{
 		if (str[i] == '\'' || str[i] == '"')
 		{
@@ -42,7 +42,7 @@ static int	save_token_special(char *str, int i)
 
 static int	count_token(char *str, int i)
 {
-	while (str[i] && str[i] != ' ')
+	while (str[i] && !is_ifs(str[i]))
 	{
 		if (str[i] == '\'' || str[i] == '"')
 		{
@@ -77,9 +77,9 @@ static int	calculate_token_count(char *str)
 	count = 0;
 	while (str[i])
 	{
-		while (str[i] && str[i] == ' ')
+		while (str[i] && is_ifs(str[i]))
 			i++;
-		if (str[i] && str[i] != ' ')
+		if (str[i] && !is_ifs(str[i]))
 		{
 			i = count_token(str, i);
 			count++;
@@ -100,10 +100,10 @@ static void	save_token(t_minishell *mini)
 	while (mini->index < mini->n_tokens)
 	{
 		start = i;
-		while (mini->str[i] && mini->str[i] == ' ')
+		while (mini->str[i] && is_ifs(mini->str[i]))
 			i++;
 		j = i;
-		if (mini->str[i] && mini->str[i] != ' ')
+		if (mini->str[i] && !is_ifs(mini->str[i]))
 		{
 			i = save_token_special(mini->str, i);
 			if (mini->index == 0 && start != j)

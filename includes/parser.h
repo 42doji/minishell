@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:05 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 15:34:49 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 16:19:29 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char		*check_quote_single(char *input, int *i);
 char		*check_quote_double(char **env, char *input, int *i);
 char		*handle_env_var(char **env, char *str, int *i);
 
-int			is_whitespace(char c);
+int			is_ifs(char c);
 int			check_redirect_in(char *str, t_token *token);
 int			check_redirect_out(char *str, t_token *token);
 int			check_pipe(char *str, t_token *token);
