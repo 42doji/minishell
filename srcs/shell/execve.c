@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 10:35:27 by doji              #+#    #+#             */
-/*   Updated: 2024/11/10 15:54:03 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 16:31:16 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,13 @@ void	execute(t_minishell *mini, char *full_path, char **args)
 	}
 }
 
-
 static char	*ft_strtok(char *str, char delimeter)
 {
 	static char	*old_str;
 	static char	*prev_str;
 	char		*new_str;
 	int			i;
-	
+
 	if (prev_str)
 		free(prev_str);
 	if (str != NULL)
@@ -57,7 +56,6 @@ static char	*ft_strtok(char *str, char delimeter)
 		old_str = NULL;
 	return (new_str);
 }
-
 
 static char	*search_path(t_minishell *mini, char *arg, char *path)
 {

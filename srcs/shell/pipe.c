@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:06:43 by doji              #+#    #+#             */
-/*   Updated: 2024/11/10 15:11:33 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 16:29:06 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,41 +29,41 @@ static int	**open_pipes(int n_token)
 	return (pipe_fd);
 }
 
-static void	write_to_pipe(t_minishell *mini, t_command **temp, int **pipe_fd, int i)
+static void	write_to_pipe(t_minishell *m, t_command **c, int **pp_fd, int i)
 {
-	if (temp[i + 1] == NULL)
+	if (c[i + 1] == NULL)
 	{
-		dup2(mini->out, STDOUT_FILENO);
-		temp[i]->out_file = mini->out;
-		execute_command(mini, temp[i], temp[i]->file);
-		close(mini->out);
-		close(pipe_fd[i - 1][READ_END]);
+		dup2(m->out, STDOUT_FILENO);
+		c[i]->out_file = m->out;
+		execute_command(m, c[i], c[i]->file);
+		close(m->out);
+		close(pp_fd[i - 1][READ_END]);
 		return ;
 	}
 	else
 	{
-		dup2(pipe_fd[i][WRITE_END], STDOUT_FILENO);
-		temp[i]->out_file = pipe_fd[i][WRITE_END];
-		execute_command(mini, temp[i], temp[i]->file);
-		close(pipe_fd[i][WRITE_END]);
+		dup2(pp_fd[i][WRITE_END], STDOUT_FILENO);
+		c[i]->out_file = pp_fd[i][WRITE_END];
+		execute_command(m, c[i], c[i]->file);
+		close(pp_fd[i][WRITE_END]);
 	}
 	if (i > 0)
-		close(pipe_fd[i - 1][READ_END]);
+		close(pp_fd[i - 1][READ_END]);
 }
 
-static void	connect_pipes(t_minishell *mini, t_command **temp, int **pipe_fd, int i)
+static void	connect_pipes(t_minishell *m, t_command **c, int **pp_fd, int i)
 {
-	(void)temp;
-	if (temp[i] == NULL)
+	(void)c;
+	if (c[i] == NULL)
 	{
-		dup2(mini->in, STDIN_FILENO);
-		close(mini->in);
+		dup2(m->in, STDIN_FILENO);
+		close(m->in);
 		return ;
 	}
 	if (i > 0)
 	{
-		dup2(pipe_fd[i - 1][READ_END], STDIN_FILENO);
-		temp[i]->in_file = pipe_fd[i - 1][READ_END];
+		dup2(pp_fd[i - 1][READ_END], STDIN_FILENO);
+		c[i]->in_file = pp_fd[i - 1][READ_END];
 	}
 }
 

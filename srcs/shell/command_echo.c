@@ -6,12 +6,12 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 12:54:24 by doji              #+#    #+#             */
-/*   Updated: 2024/11/10 11:16:38 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 16:30:13 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-	
+
 static void	check_n_option(char **input, int *i, int *flag)
 {
 	int	j;
@@ -25,7 +25,7 @@ static void	check_n_option(char **input, int *i, int *flag)
 		{
 			j = 1;
 			while (input[*i][++j] == 'n')
-				continue;
+				continue ;
 			if (input[*i][j] != '\0')
 				return ;
 			*flag = 1;

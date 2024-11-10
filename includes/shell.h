@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 19:40:06 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 15:51:44 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 16:24:17 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char		*env_var(char *env, int i);
 char		*get_shell_env(char **env, char *str);
 
 int			check_next_node(t_file **file);
-void		here_doc(t_minishell *mini, t_command *temp, t_file **file, t_fd **fd);
+void		here_doc(t_minishell *m, t_command *c, t_file **f, t_fd **fd);
 void		check_for_next_node(t_command *temp, t_file **file);
 void		here_doc_sigint(int sig);
 void		igonre_signal(void);
@@ -64,7 +64,7 @@ int			get_env_count(t_minishell *mini);
 int			handle_error(int error_code, char *custom_message);
 int			check_quote(t_minishell *mini, int k, t_token *token);
 char		*try_get_env_var(char **env, char *var_name);
-int			has_env_var(char **env,char *str);
+int			has_env_var(char **env, char *str);
 
 void		free_all(t_minishell *mini);
 void		free_fd_list(t_minishell *mini);

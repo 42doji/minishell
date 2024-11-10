@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:43:34 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 16:19:29 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 16:27:00 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,30 +90,30 @@ static int	calculate_token_count(char *str)
 	return (count);
 }
 
-static void	save_token(t_minishell *mini)
+static void	save_token(t_minishell *mi)
 {
 	int	i;
 	int	j;
-	int start;
+	int	st;
 
 	i = 0;
-	while (mini->index < mini->n_tokens)
+	while (mi->index < mi->n_tokens)
 	{
-		start = i;
-		while (mini->str[i] && is_ifs(mini->str[i]))
+		st = i;
+		while (mi->str[i] && is_ifs(mi->str[i]))
 			i++;
 		j = i;
-		if (mini->str[i] && !is_ifs(mini->str[i]))
+		if (mi->str[i] && !is_ifs(mi->str[i]))
 		{
-			i = save_token_special(mini->str, i);
-			if (mini->index == 0 && start != j)
-				mini->input[mini->index] = ft_substr(mini->str, start, (i - start) + 1);
+			i = save_token_special(mi->str, i);
+			if (mi->index == 0 && st != j)
+				mi->input[mi->index] = ft_substr(mi->str, st, (i - st) + 1);
 			else
-				mini->input[mini->index] = ft_substr(mini->str, j, (i - j) + 1);
+				mi->input[mi->index] = ft_substr(mi->str, j, (i - j) + 1);
 		}
-		if (mini->str[i] == '\0')
+		if (mi->str[i] == '\0')
 			break ;
-		mini->index++;
+		mi->index++;
 		i++;
 	}
 }

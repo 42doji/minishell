@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 23:36:29 by doji              #+#    #+#             */
-/*   Updated: 2024/11/10 15:54:12 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 16:32:12 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	here_doc_sigint(int sig)
 	(void)sig;
 	printf("\n");
 	g_exit_status = 130;
-	// free_all(g_minishell.str);
 	exit(g_exit_status);
 }
 

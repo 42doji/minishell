@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:32:43 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 15:53:50 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 16:29:47 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,22 @@ static void	check_exit_args(t_minishell *mini, char **input, int count)
 	}
 }
 
-static int get_number_signal(char *arg)
+static int	get_number_signal(char *arg)
 {
-    long long   num;
-    
-    if (!is_valid_digit_count(arg))
-        return (0);
-    num = 0;
-    if (*arg == '+' || *arg == '-')
-        arg++;
-    while (*arg)
-    {
-        if (num > (LLONG_MAX - (*arg - '0')) / 10)
-            return (0);
-        num = num * 10 + (*arg++ - '0');
-    }
-    return (1);
+	long long	num;
+
+	if (!is_valid_digit_count(arg))
+		return (0);
+	num = 0;
+	if (*arg == '+' || *arg == '-')
+		arg++;
+	while (*arg)
+	{
+		if (num > (LLONG_MAX - (*arg - '0')) / 10)
+			return (0);
+		num = num * 10 + (*arg++ - '0');
+	}
+	return (1);
 }
 
 void	command_exit(t_minishell *mini, char **input)

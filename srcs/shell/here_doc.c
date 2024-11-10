@@ -6,13 +6,13 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 21:15:05 by doji              #+#    #+#             */
-/*   Updated: 2024/11/10 15:54:06 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 16:27:50 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int g_exit_status;
+extern int	g_exit_status;
 
 static void	write_here_doc(int pipe_fd, char *str)
 {
@@ -42,7 +42,7 @@ static void	exec_here_doc(char **env, int pipe_fd, t_file **file, char *str)
 	}
 }
 
-static void	parent_process(t_minishell *mini, int p[2], t_command *cmd, t_file **f)
+static void	parent_run(t_minishell *mi, int p[2], t_command *cmd, t_file **f)
 {
 	close(p[1]);
 	igonre_signal();
@@ -53,7 +53,7 @@ static void	parent_process(t_minishell *mini, int p[2], t_command *cmd, t_file *
 	dup2(cmd->out_file, STDOUT_FILENO);
 	dup2(p[0], STDIN_FILENO);
 	close(p[0]);
-	mini->fd = mini->fd->next;
+	mi->fd = mi->fd->next;
 	if ((*f)->next != NULL)
 	{
 		*f = (*f)->next;
@@ -63,13 +63,13 @@ static void	parent_process(t_minishell *mini, int p[2], t_command *cmd, t_file *
 	{
 		*f = (*f)->next;
 		if (cmd->args[0])
-			execve_or_builtin(mini, cmd->args);
+			execve_or_builtin(mi, cmd->args);
 	}
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ctrl_c);
 }
 
-void	here_doc(t_minishell *mini, t_command *command, t_file **file, t_fd **fd)
+void	here_doc(t_minishell *m, t_command *cmd, t_file **file, t_fd **fd)
 {
 	int		pipe_fd[2];
 	int		pid;
@@ -79,7 +79,7 @@ void	here_doc(t_minishell *mini, t_command *command, t_file **file, t_fd **fd)
 	str = NULL;
 	dup2((*fd)->out, STDOUT_FILENO);
 	dup2((*fd)->in, STDIN_FILENO);
-	env = mini->env;
+	env = m->env;
 	pipe(pipe_fd);
 	signal(SIGINT, &here_doc_sigint);
 	pid = fork();
@@ -88,10 +88,10 @@ void	here_doc(t_minishell *mini, t_command *command, t_file **file, t_fd **fd)
 		close(pipe_fd[0]);
 		exec_here_doc(env, pipe_fd[1], file, str);
 		close(pipe_fd[1]);
-		free_all(mini);
-		free_path_and_env(mini);
+		free_all(m);
+		free_path_and_env(m);
 		exit(g_exit_status);
 	}
 	else
-		parent_process(mini, pipe_fd, command, file);
+		parent_run(m, pipe_fd, cmd, file);
 }

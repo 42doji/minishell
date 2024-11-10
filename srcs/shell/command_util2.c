@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:40:25 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 14:43:50 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 16:30:56 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,21 @@ void	update_env_path(t_minishell *mini)
 	free(path);
 }
 
-int is_valid_digit_count(char *arg)
+int	is_valid_digit_count(char *arg)
 {
-    int len;
-    
-    len = 0;
-    if (*arg == '+' || *arg == '-')
-        arg++;
-    while (*arg == '0')
-        arg++;
-    while (*arg >= '0' && *arg <= '9')
-    {
-        len++;
-        arg++;
-    }
-    if (*arg != '\0' || len > 19)
-        return (0);
-    return (1);
+	int	len;
+
+	len = 0;
+	if (*arg == '+' || *arg == '-')
+		arg++;
+	while (*arg == '0')
+		arg++;
+	while (*arg >= '0' && *arg <= '9')
+	{
+		len++;
+		arg++;
+	}
+	if (*arg != '\0' || len > 19)
+		return (0);
+	return (1);
 }
