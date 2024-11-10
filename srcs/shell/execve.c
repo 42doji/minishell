@@ -6,26 +6,26 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 10:35:27 by doji              #+#    #+#             */
-/*   Updated: 2024/11/10 11:13:10 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 15:54:03 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute(char *full_path, char **args)
+void	execute(t_minishell *mini, char *full_path, char **args)
 {
-	if (g_minishell.flag2 == 0)
+	if (mini->flag2 == 0)
 	{
-		execve(full_path, args, g_minishell.env);
-		free_all(g_minishell.str);
-		free_path_and_env();
+		execve(full_path, args, mini->env);
+		free_all(mini);
+		free_path_and_env(mini);
 		print_error(args[0], ": Permission denied\n", 126);
 		exit(126);
 	}
 	else
 	{
-		free_all(g_minishell.str);
-		free_path_and_env();
+		free_all(mini);
+		free_path_and_env(mini);
 		exit(1);
 	}
 }
@@ -59,7 +59,7 @@ static char	*ft_strtok(char *str, char delimeter)
 }
 
 
-static char	*search_path(char *arg, char *path)
+static char	*search_path(t_minishell *mini, char *arg, char *path)
 {
 	char	*total_path;
 	char	*command;
@@ -83,18 +83,18 @@ static char	*search_path(char *arg, char *path)
 	}
 	free(command);
 	print_error(arg, ": command not found\n", 127);
-	free_all(g_minishell.str);
-	free_path_and_env();
+	free_all(mini);
+	free_path_and_env(mini);
 	return (NULL);
 }
 
-void	execute_execve(char **args)
+void	execute_execve(t_minishell *mini, char **args)
 {
 	char	*total;
 	char	*path;
 
 	total = NULL;
-	path = get_shell_env(g_minishell.env, "PATH");
+	path = get_shell_env(mini->env, "PATH");
 	if (path == NULL)
 	{
 		print_error(args[0], ": No such file or directory\n", 127);
@@ -102,17 +102,17 @@ void	execute_execve(char **args)
 	}
 	if (check_if_path(args[0]) == 0)
 	{
-		total = search_path(args[0], path);
+		total = search_path(mini, args[0], path);
 		if (total == NULL)
 		{
 			free(path);
 			exit(g_exit_status);
 		}
 		else
-			execute(total, args);
+			execute(mini, total, args);
 		free(total);
 	}
 	else
-		execute(args[0], args);
+		execute(mini, args[0], args);
 	free(path);
 }

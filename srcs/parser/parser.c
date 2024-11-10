@@ -6,13 +6,13 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:43:56 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 11:17:19 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 14:49:48 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	create_out_dup_list(void)
+static void	create_out_dup_list(t_minishell *mini)
 {
 	t_fd		*fd;
 	t_command	**temp;
@@ -21,8 +21,8 @@ static void	create_out_dup_list(void)
 
 	i = -1;
 	fd = (t_fd *)malloc(sizeof(t_fd));
-	g_minishell.fd = fd;
-	temp = g_minishell.parsed;
+	mini->fd = fd;
+	temp = mini->parsed;
 	while (temp[++i])
 	{
 		file = temp[i]->file;
@@ -97,15 +97,15 @@ static void	add_argument(t_token **token, t_command **cur)
 	(*token) = (*token)->next;
 }
 
-void	parse_command(int in_file, int out_file, t_token *token)
+void	parse_command(t_minishell *mini, t_token *token)
 {
 	t_command	**list;
 	t_command	*cur;
 
-	list = ft_calloc(num_token(g_minishell.input) + 1, sizeof(t_command *));
+	list = ft_calloc(cal_input_token(mini) + 1, sizeof(t_command *));
 	while (token)
 	{
-		cur = create_command(in_file, out_file);
+		cur = create_command(0, 1);
 		add_command_to_list(cur, list);
 		while (token)
 		{
@@ -122,6 +122,6 @@ void	parse_command(int in_file, int out_file, t_token *token)
 				token = token->next;
 		}
 	}
-	g_minishell.parsed = list;
-	create_out_dup_list();
+	mini->parsed = list;
+	create_out_dup_list(mini);
 }

@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 14:32:36 by doji              #+#    #+#             */
-/*   Updated: 2024/11/08 19:46:48 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 15:02:05 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,23 @@ int	to_builtin_command_type(char *command)
 	return (0);
 }
 
-void	execute_builtin_command(char **arguments)
+void	execute_builtin_command(t_minishell *mini, char **arguments)
 {
 	int	type;
 
 	type = to_builtin_command_type(arguments[0]);
 	if (type == CD)
-		command_cd(arguments);
+		command_cd(mini, arguments);
 	else if (type == ENV)
-		command_env(arguments);
+		command_env(mini->env, arguments);
 	else if (type == PWD)
 		command_pwd();
 	else if (type == ECHO)
 		command_echo(arguments);
 	else if (type == EXIT)
-		command_exit(arguments);
+		command_exit(mini, arguments);
 	else if (type == UNSET)
-		command_unset(arguments);
+		command_unset(mini, arguments);
 	else if (type == EXPORT)
-		command_export(arguments);
+		command_export(mini, arguments);
 }

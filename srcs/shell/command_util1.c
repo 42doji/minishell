@@ -6,26 +6,26 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:24:06 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 11:19:14 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 15:03:03 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	has_env(char *str)
+int	has_env_var(char **env, char *str)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (g_minishell.env[i])
+	while (env[i])
 	{
 		j = 0;
-		while (g_minishell.env[i][j] && str[j])
+		while (env[i][j] && str[j])
 		{
-			if (str[j] == '=' && g_minishell.env[i][j] == '=')
+			if (str[j] == '=' && env[i][j] == '=')
 				return (i);
-			if (str[j] != g_minishell.env[i][j])
+			if (str[j] != env[i][j])
 				break ;
 			j++;
 		}
@@ -34,27 +34,27 @@ int	has_env(char *str)
 	return (-1);
 }
 
-static void	export_print_all(void)
+static void	export_print_all(char **env)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (g_minishell.env[i] != NULL)
+	while (env[i] != NULL)
 	{
 		j = 0;
 		printf("declare -x ");
-		while (g_minishell.env[i][j] != '=' && g_minishell.env[i][0])
+		while (env[i][j] != '=' && env[i][0])
 		{
-			printf("%c", g_minishell.env[i][j]);
+			printf("%c", env[i][j]);
 			j++;
 		}
-		printf("%c", g_minishell.env[i][j]);
+		printf("%c", env[i][j]);
 		printf("\"");
 		j++;
-		while (g_minishell.env[i][j])
+		while (env[i][j])
 		{
-			printf("%c", g_minishell.env[i][j]);
+			printf("%c", env[i][j]);
 			j++;
 		}
 		printf("\"\n");
@@ -62,10 +62,10 @@ static void	export_print_all(void)
 	}
 }
 
-void	sort_and_print(void)
+void	sort_and_print(t_minishell *mini)
 {
-	sort_env_variables(g_minishell.env);
-	export_print_all();
+	sort_env_variables(mini->env);
+	export_print_all(mini->env);
 }
 
 void	swap_strings(char **a, char **b)

@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 23:36:29 by doji              #+#    #+#             */
-/*   Updated: 2024/11/10 11:12:48 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 15:54:12 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@ void	here_doc_sigint(int sig)
 {
 	(void)sig;
 	printf("\n");
-	g_minishell.exit_status = 130;
-	free_all(g_minishell.str);
-	free_path_and_env();
+	g_exit_status = 130;
+	// free_all(g_minishell.str);
 	exit(g_exit_status);
 }
 
@@ -38,13 +37,13 @@ void	ctrl_c(int signal)
 	g_exit_status = 128 + signal;
 }
 
-void	ctrl_d(char *str)
+void	ctrl_d(t_minishell *mini)
 {
-	if (!str)
+	if (!mini->str)
 	{
 		printf("exit\n");
-		free_all(str);
-		free_path_and_env();
+		free_all(mini);
+		free_path_and_env(mini);
 		exit(g_exit_status);
 	}
 }

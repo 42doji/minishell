@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:43:34 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 11:17:42 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 13:37:39 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,42 +90,41 @@ static int	calculate_token_count(char *str)
 	return (count);
 }
 
-static void	save_token(char *str)
+static void	save_token(t_minishell *mini)
 {
 	int	i;
 	int	j;
 	int start;
 
 	i = 0;
-	while (g_minishell.index < g_minishell.n_tokens)
+	while (mini->index < mini->n_tokens)
 	{
 		start = i;
-		while (str[i] && str[i] == ' ')
+		while (mini->str[i] && mini->str[i] == ' ')
 			i++;
 		j = i;
-		if (str[i] && str[i] != ' ')
+		if (mini->str[i] && mini->str[i] != ' ')
 		{
-			i = save_token_special(str, i);
-			if (g_minishell.index == 0 && start != j)
-				g_minishell.input[g_minishell.index] = ft_substr(str, start, (i - start) + 1);
+			i = save_token_special(mini->str, i);
+			if (mini->index == 0 && start != j)
+				mini->input[mini->index] = ft_substr(mini->str, start, (i - start) + 1);
 			else
-				g_minishell.input[g_minishell.index] = ft_substr(str, j, (i - j) + 1);
+				mini->input[mini->index] = ft_substr(mini->str, j, (i - j) + 1);
 		}
-		
-		if (str[i] == '\0')
+		if (mini->str[i] == '\0')
 			break ;
-		g_minishell.index++;
+		mini->index++;
 		i++;
 	}
 }
 
-void	lexer(char *str)
+void	lexer(t_minishell *mini)
 {
-	g_minishell.n_tokens = calculate_token_count(str);
-	g_minishell.input = malloc(sizeof(char *) * (g_minishell.n_tokens + 1));
-	if (!g_minishell.input)
+	mini->n_tokens = calculate_token_count(mini->str);
+	mini->input = malloc(sizeof(char *) * (mini->n_tokens + 1));
+	if (!mini->input)
 		exit(1);
-	g_minishell.input[g_minishell.n_tokens] = NULL;
-	g_minishell.index = 0;
-	save_token(str);
+	mini->input[mini->n_tokens] = NULL;
+	mini->index = 0;
+	save_token(mini);
 }

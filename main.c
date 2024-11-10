@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 23:00:53 by filipa            #+#    #+#             */
-/*   Updated: 2024/11/10 11:19:03 by junmin           ###   ########.fr       */
+/*   Created: 2024/10/09 23:00:53 by junmin            #+#    #+#             */
+/*   Updated: 2024/11/10 16:03:46 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	create_minishell(envp);
+	create_minishell(&mini, envp);
 	signal(SIGINT, &ctrl_c);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		str = readline(PROMPT);
-		g_minishell.str = str;
-		ctrl_d(str);
+		mini.str = str;
+		ctrl_d(&mini);
 		if (check_if_empty(str) == 1)
 			continue ;
-		initialize_shell(str);
-		free_all(str);
+		initialize_shell(&mini);
+		free_all(&mini);
 	}
 }

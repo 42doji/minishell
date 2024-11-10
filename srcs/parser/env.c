@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:42:37 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 11:18:44 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 15:22:59 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,19 +94,17 @@ char	*handle_env_var(char **env, char *str, int *i)
 	return (new_str);
 }
 
-static char	*check_string(char *str, int *i)
+static char	*check_string(t_minishell *mini, char *str, int *i)
 {
-	char	**env;
 	char	*new_str;
 
-	env = g_minishell.env;
 	if (str[*i] == '$')
 	{
 		(*i)++;
-		return (handle_env_var(env, str, i));
+		return (handle_env_var(mini->env, str, i));
 	}
 	else if (str[*i] == '"')
-		return (check_quote_double(env, str, i));
+		return (check_quote_double(mini->env, str, i));
 	else if (str[*i] == '\'')
 		return (check_quote_single(str, i));
 	else
@@ -117,7 +115,7 @@ static char	*check_string(char *str, int *i)
 	}
 }
 
-void	search_env_var(char **str)
+void	replace_env_var(t_minishell *mini)
 {
 	char	*new_str;
 	char	*temp;
@@ -126,22 +124,21 @@ void	search_env_var(char **str)
 	int		j;
 
 	i = 0;
-	while (str[i])
+	while (mini->input[i])
 	{
 		j = 0;
 		temp = ft_calloc(1, sizeof(char));
-		while (str[i][j])
+		while (mini->input[i][j])
 		{
-			check_str = check_string(str[i], &j);
+			check_str = check_string(mini, mini->input[i], &j);
 			new_str = ft_strjoin(temp, check_str);
 			free(temp);
 			temp = new_str;
 			free(check_str);
 		}
-		replace_string(&str[i], &temp);
+		replace_string(&mini->input[i], &temp);
 		i++;
-		if (ft_strcmp(str[i - 1], "<<") == 0 && str[i] != NULL)
+		if (ft_strcmp(mini->input[i - 1], "<<") == 0 && mini->input[i] != NULL)
 			i++;
 	}
-	g_minishell.input = str;
 }

@@ -6,19 +6,19 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:06:43 by doji              #+#    #+#             */
-/*   Updated: 2024/11/08 19:54:35 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 15:11:33 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	**open_pipes(void)
+static int	**open_pipes(int n_token)
 {
 	int	**pipe_fd;
 	int	i;
 	int	a;
 
-	i = (g_minishell.n_tokens2 - 1);
+	i = (n_token - 1);
 	pipe_fd = ft_calloc(i + 1, sizeof(int *));
 	a = -1;
 	while (++a < i)
@@ -29,14 +29,14 @@ static int	**open_pipes(void)
 	return (pipe_fd);
 }
 
-static void	write_to_pipe(t_command **temp, int **pipe_fd, int i, t_fd **fd)
+static void	write_to_pipe(t_minishell *mini, t_command **temp, int **pipe_fd, int i)
 {
 	if (temp[i + 1] == NULL)
 	{
-		dup2(g_minishell.out, STDOUT_FILENO);
-		temp[i]->out_file = g_minishell.out;
-		execute_command(temp[i], temp[i]->file, fd);
-		close(g_minishell.out);
+		dup2(mini->out, STDOUT_FILENO);
+		temp[i]->out_file = mini->out;
+		execute_command(mini, temp[i], temp[i]->file);
+		close(mini->out);
 		close(pipe_fd[i - 1][READ_END]);
 		return ;
 	}
@@ -44,20 +44,20 @@ static void	write_to_pipe(t_command **temp, int **pipe_fd, int i, t_fd **fd)
 	{
 		dup2(pipe_fd[i][WRITE_END], STDOUT_FILENO);
 		temp[i]->out_file = pipe_fd[i][WRITE_END];
-		execute_command(temp[i], temp[i]->file, fd);
+		execute_command(mini, temp[i], temp[i]->file);
 		close(pipe_fd[i][WRITE_END]);
 	}
 	if (i > 0)
 		close(pipe_fd[i - 1][READ_END]);
 }
 
-static void	connect_pipes(t_command **temp, int **pipe_fd, int i)
+static void	connect_pipes(t_minishell *mini, t_command **temp, int **pipe_fd, int i)
 {
 	(void)temp;
 	if (temp[i] == NULL)
 	{
-		dup2(g_minishell.in, STDIN_FILENO);
-		close(g_minishell.in);
+		dup2(mini->in, STDIN_FILENO);
+		close(mini->in);
 		return ;
 	}
 	if (i > 0)
@@ -67,18 +67,17 @@ static void	connect_pipes(t_command **temp, int **pipe_fd, int i)
 	}
 }
 
-void	pipe_handling(t_command **temp, t_fd **fd)
+void	pipe_handling(t_minishell *mini, t_command **temp)
 {
 	int	i;
 	int	**pipe_fd;
 
 	i = 0;
-	pipe_fd = open_pipes();
+	pipe_fd = open_pipes(mini->n_tokens2);
 	while (temp[i])
 	{
-		write_to_pipe(temp, pipe_fd, i, fd);
-		i++;
-		connect_pipes(temp, pipe_fd, i);
+		write_to_pipe(mini, temp, pipe_fd, i++);
+		connect_pipes(mini, temp, pipe_fd, i);
 	}
 	free_open_pipe(pipe_fd);
 }

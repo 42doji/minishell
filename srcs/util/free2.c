@@ -6,22 +6,23 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 19:56:00 by doji              #+#    #+#             */
-/*   Updated: 2024/11/08 19:46:48 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 14:02:37 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_fd_list(t_fd *fd)
+void	free_fd_list(t_minishell *mini)
 {
 	t_command	**temp;
 	t_file		*file;
 	t_fd		*tmp;
+	t_fd		*fd;
 	int			i;
 
 	i = -1;
-	g_minishell.fd = fd;
-	temp = g_minishell.parsed;
+	fd = mini->fd;
+	temp = mini->parsed;
 	while (temp[++i])
 	{
 		file = temp[i]->file;
@@ -34,50 +35,33 @@ void	free_fd_list(t_fd *fd)
 		}
 	}
 	free(fd);
-	g_minishell.fd = NULL;
+	mini->fd = NULL;
 }
 
-void	free_path_and_env(void)
+void	free_path_and_env(t_minishell *mini)
 {
 	int	i;
 
 	i = 0;
-	if (g_minishell.paths)
+	if (mini->paths)
 	{
-		while (g_minishell.paths[i])
+		while (mini->paths[i])
 		{
-			free(g_minishell.paths[i]);
+			free(mini->paths[i]);
 			i++;
 		}
-		free(g_minishell.paths);
+		free(mini->paths);
 	}
-	g_minishell.paths = NULL;
+	mini->paths = NULL;
 	i = 0;
-	if (g_minishell.env)
+	if (mini->env)
 	{
-		while (g_minishell.env[i])
+		while (mini->env[i])
 		{
-			free(g_minishell.env[i]);
+			free(mini->env[i]);
 			i++;
 		}
-		free(g_minishell.env);
+		free(mini->env);
 	}
-	g_minishell.env = NULL;
-}
-
-void	free_str_2(char **str)
-{
-	int	i;
-
-	i = 0;
-	if (str)
-	{
-		while (str[i])
-		{
-			free(str[i]);
-			i++;
-		}
-		free(str);
-	}
-	g_minishell.str2 = NULL;
+	mini->env = NULL;
 }

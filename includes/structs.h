@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 19:40:19 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 11:06:26 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 14:00:05 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ typedef struct s_minishell
 	char					*str;
 	char					**env;
 	char					**paths;
-	char					**str2;
 	char					**input;
 	t_fd					*fd;
 	t_token					*token;

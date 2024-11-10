@@ -6,23 +6,23 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 16:09:10 by doji              #+#    #+#             */
-/*   Updated: 2024/11/08 19:46:57 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 14:10:44 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	dup_fds(t_command *temp)
+void	dup_fds(t_minishell *mini)
 {
-	if (temp->args[0])
+	if (mini->parsed[0]->args[0])
 	{
-		temp->in_file = dup(g_minishell.in);
-		temp->out_file = dup(g_minishell.out);
+		mini->parsed[0]->in_file = dup(mini->in);
+		mini->parsed[0]->out_file = dup(mini->out);
 	}
-	g_minishell.in = dup(STDIN_FILENO);
-	g_minishell.in2 = dup(STDIN_FILENO);
-	g_minishell.out = dup(STDOUT_FILENO);
-	g_minishell.out2 = dup(STDOUT_FILENO);
+	mini->in = dup(STDIN_FILENO);
+	mini->in2 = dup(STDIN_FILENO);
+	mini->out = dup(STDOUT_FILENO);
+	mini->out2 = dup(STDOUT_FILENO);
 }
 
 char	*get_shell_env(char **env, char *str)

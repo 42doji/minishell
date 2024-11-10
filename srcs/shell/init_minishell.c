@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 10:26:56 by doji              #+#    #+#             */
-/*   Updated: 2024/11/10 11:12:50 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 15:51:11 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ static char	**dup_env_var(char **ev)
 	return (env_copy);
 }
 
-void	create_minishell(char **ev)
+void create_minishell(t_minishell *mini, char **ev)
 {
 	errno = 0;
-	g_minishell.env = dup_env_var(ev);
-	g_minishell.paths = ft_split(getenv("PATH"), ':');
-	g_minishell.token = NULL;
-	g_minishell.parsed = NULL;
-	g_minishell.fd = NULL;
-	g_minishell.error = 0;
+	mini->env = dup_env_var(ev);
+	mini->paths = ft_split(getenv("PATH"), ':');
+	mini->token = NULL;
+	mini->parsed = NULL;
+	mini->fd = NULL;
+	mini->error = 0;
 }

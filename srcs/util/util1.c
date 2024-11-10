@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 18:42:53 by filipa            #+#    #+#             */
-/*   Updated: 2024/11/10 11:12:48 by junmin           ###   ########.fr       */
+/*   Created: 2024/10/10 18:42:53 by junmin            #+#    #+#             */
+/*   Updated: 2024/11/10 14:43:01 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_env(char *var_name)
+char	*try_get_env_var(char **env, char *var_name)
 {
 	int		i;
 	int		j;
@@ -21,14 +21,14 @@ char	*get_env(char *var_name)
 	i = -1;
 	j = 0;
 	env_str = ft_strjoin_without_free(var_name, "=");
-	while (g_minishell.env[++i])
+	while (env[++i])
 	{
-		if (!ft_strncmp(g_minishell.env[i], env_str, ft_strlen(env_str)))
+		if (!ft_strncmp(env[i], env_str, ft_strlen(env_str)))
 		{
-			while (g_minishell.env[i][j] != '=')
+			while (env[i][j] != '=')
 				j++;
 			free(env_str);
-			return (ft_strdup(&g_minishell.env[i][j + 1]));
+			return (ft_strdup(&env[i][j + 1]));
 		}
 	}
 	free(env_str);

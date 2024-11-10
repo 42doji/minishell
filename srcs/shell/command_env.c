@@ -6,17 +6,14 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:45:11 by doji              #+#    #+#             */
-/*   Updated: 2024/11/10 11:16:21 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 14:27:02 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	command_env(char **args)
+void	command_env(char **env, char **args)
 {
-	char	**env;
-
-	env = g_minishell.env;
 	if (args[1])
 	{
 		print_error(args[1], "error: No such file or directory.\n", 127);

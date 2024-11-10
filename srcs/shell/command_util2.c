@@ -6,33 +6,33 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:40:25 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 11:19:13 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 14:43:50 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_env_count(void)
+int	get_env_count(t_minishell *mini)
 {
 	int	i;
 
 	i = -1;
-	while (g_minishell.env[++i])
+	while (mini->env[++i])
 		;
 	return (i);
 }
 
-void	update_env_path(void)
+void	update_env_path(t_minishell *mini)
 {
 	char	*path;
 
-	if (g_minishell.paths)
-		free_array(g_minishell.paths);
-	path = get_env("PATH");
+	if (mini->paths)
+		free_array(mini->paths);
+	path = try_get_env_var(mini->env, "PATH");
 	if (!(*path))
-		g_minishell.paths = 0;
+		mini->paths = 0;
 	else
-		g_minishell.paths = ft_split(path, ':');
+		mini->paths = ft_split(path, ':');
 	free(path);
 }
 

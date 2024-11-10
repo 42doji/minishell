@@ -6,13 +6,13 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 12:20:20 by doji              #+#    #+#             */
-/*   Updated: 2024/11/10 11:12:39 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 14:45:46 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	append(t_command *command, t_file **file)
+void	append(t_minishell *mini, t_command *command, t_file **file)
 {
 	int	file_fd;
 
@@ -31,14 +31,14 @@ void	append(t_command *command, t_file **file)
 			return ;
 		}
 		else if (command->args[0])
-			execve_or_builtin(command->args);
+			execve_or_builtin(mini, command->args);
 	}
 	close(file_fd);
-	g_minishell.flag2 = 0;
+	mini->flag2 = 0;
 	*file = (*file)->next;
 }
 
-void	redirect_out(t_command *command, t_file **file)
+void	redirect_out(t_minishell *mini, t_command *command, t_file **file)
 {
 	int	file_fd;
 
@@ -46,7 +46,7 @@ void	redirect_out(t_command *command, t_file **file)
 	if (file_fd == -1)
 	{
 		print_error((*file)->name, ": Not found\n", 1);
-		g_minishell.flag2 = 1;
+		mini->flag2 = 1;
 		*file = (*file)->next;
 		return ;
 	}
@@ -60,14 +60,14 @@ void	redirect_out(t_command *command, t_file **file)
 			return ;
 		}
 		else if (command->args[0])
-			execve_or_builtin(command->args);
+			execve_or_builtin(mini, command->args);
 	}
 	close(file_fd);
-	g_minishell.flag2 = 0;
+	mini->flag2 = 0;
 	*file = (*file)->next;
 }
 
-void	redirect_in(t_command *command, t_file **file)
+void	redirect_in(t_minishell *mini, t_command *command, t_file **file)
 {
 	int	file_fd;
 
@@ -86,9 +86,9 @@ void	redirect_in(t_command *command, t_file **file)
 			return ;
 		}
 		else if (command->args[0])
-			execve_or_builtin(command->args);
+			execve_or_builtin(mini, command->args);
 	}
 	close(file_fd);
-	g_minishell.flag2 = 0;
+	mini->flag2 = 0;
 	*file = (*file)->next;
 }

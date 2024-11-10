@@ -6,24 +6,24 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 10:45:38 by doji              #+#    #+#             */
-/*   Updated: 2024/11/10 11:12:47 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 15:53:23 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_minishell(void)
+static void	free_minishell(t_minishell *mini)
 {
 	int	i;
 
 	i = 0;
-	while (g_minishell.input[i])
+	while (mini->input[i])
 	{
-		free(g_minishell.input[i]);
+		free(mini->input[i]);
 		i++;
 	}
-	free(g_minishell.input);
-	g_minishell.input = NULL;
+	free(mini->input);
+	mini->input = NULL;
 }
 
 void	free_open_pipe(int **pipe)
@@ -39,7 +39,7 @@ void	free_open_pipe(int **pipe)
 	free(pipe);
 }
 
-static void	free_parser(t_command **parsed)
+static void	free_parser(t_minishell *mini, t_command **parsed)
 {
 	t_file	*tmp;
 	int		i;
@@ -65,17 +65,17 @@ static void	free_parser(t_command **parsed)
 		free(parsed[i]);
 	}
 	free(parsed);
-	g_minishell.parsed = NULL;
+	mini->parsed = NULL;
 }
 
-static void	free_lexer(t_token *token)
+static void	free_lexer(t_minishell *mini, t_token *token)
 {
 	t_token	*tmp;
 	int		i;
 
 	tmp = token;
 	i = 0;
-	while (i < g_minishell.n_tokens)
+	while (i < mini->n_tokens)
 	{
 		free(token->value);
 		tmp = token->next;
@@ -83,22 +83,23 @@ static void	free_lexer(t_token *token)
 		token = tmp;
 		i++;
 	}
-	g_minishell.token = NULL;
+	mini->token = NULL;
 }
 
-void	free_all(char *str)
+void	free_all(t_minishell *mini)
 {
-	if (str)
-		free(str);
-	if (g_minishell.input)
-		free_minishell();
-	if (g_minishell.token)
-		free_lexer(g_minishell.token);
-	if (g_minishell.fd)
-		free_fd_list(g_minishell.fd);
-	if (g_minishell.parsed)
-		free_parser(g_minishell.parsed);
-	if (g_minishell.str2)
-		free_str_2(g_minishell.str2);
-	g_minishell.n_tokens2 = 0;
+	if (mini->str)
+	{
+		free(mini->str);
+		mini->str = NULL;
+	}
+	if (mini->input)
+		free_minishell(mini);
+	if (mini->token)
+		free_lexer(mini, mini->token);
+	if (mini->fd)
+		free_fd_list(mini);
+	if (mini->parsed)
+		free_parser(mini, mini->parsed);
+	mini->n_tokens2 = 0;
 }

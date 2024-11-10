@@ -6,23 +6,23 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:46:57 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 11:17:03 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 13:51:01 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	check_char_special(char *str, int k, t_token *token)
+static void	set_token_type(t_minishell *mini, int i, t_token *token)
 {
 	int		result;
 
-	result = check_quote(k, token);
+	result = check_quote(mini, i, token);
 	if (result == 0)
-		result = check_pipe(str, token);
+		result = check_pipe(mini->input[i], token);
 	if (result == 0)
-		result = check_redirect_in(str, token);
+		result = check_redirect_in(mini->input[i], token);
 	if (result == 0)
-		result = check_redirect_out(str, token);
+		result = check_redirect_out(mini->input[i], token);
 	if (result == 0)
 		token->type = STRING;
 }
@@ -35,7 +35,7 @@ static void	init_token(t_token *token)
 	token->next = NULL;
 }
 
-void	tokenizer(char **str)
+void	tokenizer(t_minishell *mini)
 {
 	int		i;
 	t_token	*new;
@@ -44,17 +44,17 @@ void	tokenizer(char **str)
 	i = 0;
 	temp = NULL;
 	new = malloc(sizeof(t_token));
-	while (str[i])
+	while (mini->input[i])
 	{
 		init_token(new);
-		new->value = ft_strdup(str[i]);
-		check_char_special(str[i], i, new);
+		new->value = ft_strdup(mini->input[i]);
+		set_token_type(mini, i, new);
 		new->index = i;
 		if (temp != NULL)
 			new->prev = temp;
 		else
-			g_minishell.token = new;
-		if (str[i + 1])
+			mini->token = new;
+		if (mini->input[i + 1])
 			new->next = malloc(sizeof(t_token));
 		temp = new;
 		new = new->next;

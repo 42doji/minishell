@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:37:57 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/08 19:51:35 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/10 14:49:24 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	replace_string(char **old_str, char **new_str)
 	free(*new_str);
 }
 
-int	check_quote(int k, t_token *token)
+int	check_quote(t_minishell *mini, int k, t_token *token)
 {
-	if (g_minishell.str2[k])
+	if (mini->input[k])
 	{
-		if (g_minishell.str2[k][0] == '"' || g_minishell.str2[k][0] == '\'')
+		if (mini->input[k][0] == '"' || mini->input[k][0] == '\'')
 		{
 			token->type = STRING;
 			return (1);
@@ -32,25 +32,25 @@ int	check_quote(int k, t_token *token)
 	return (0);
 }
 
-int	num_token(char **str)
+int	cal_input_token(t_minishell *mini)
 {
 	int	i;
 	int	a;
 
 	i = 1;
 	a = 0;
-	while (str[i])
+	while (mini->input[i])
 	{
-		if (str[i][0] == '|')
+		if (mini->input[i][0] == '|')
 			a++;
 		i++;
 	}
 	if (a == 0)
 	{
-		g_minishell.n_tokens2 = 1;
+		mini->n_tokens2 = 1;
 		return (1);
 	}
 	else
-		g_minishell.n_tokens2 = a + 1;
-	return (g_minishell.n_tokens2);
+		mini->n_tokens2 = a + 1;
+	return (mini->n_tokens2);
 }
