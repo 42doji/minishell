@@ -88,6 +88,8 @@ static void	free_lexer(t_minishell *mini, t_token *token)
 
 void	free_all(t_minishell *mini)
 {
+	if (!mini)
+		return ;
 	if (mini->str)
 	{
 		free(mini->str);

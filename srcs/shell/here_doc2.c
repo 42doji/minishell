@@ -25,13 +25,18 @@ static char	*add_char_to_string(char *temp, char c)
 	return (temp);
 }
 
-char	*search_expansion(char **env, char *str)
+char    *search_expansion(char **env, char *str)
 {
-	char	*temp;
-	char	*var;
-	int		i;
+	char    *temp;
+	char    *var;
+	char    *result;
+	int     i;
 
+	if (!str)
+		return (NULL);
 	temp = ft_calloc(1, sizeof(char));
+	if (!temp)
+		return (NULL);
 	i = -1;
 	while (str[++i])
 	{
@@ -39,14 +44,21 @@ char	*search_expansion(char **env, char *str)
 		{
 			i++;
 			var = handle_env_var(env, str, &i);
-			temp = ft_strjoin(temp, var);
-			free(var);
+			result = ft_strjoin(temp, var);
+			free(temp);  // 기존 temp 해제
+			free(var);   // var 해제
+			temp = result;
+			if (!temp)
+				return (NULL);
 		}
-		if (str[i] == '\0')
-			break ;
-		if (str[i] == '$')
-			continue ;
-		temp = add_char_to_string(temp, str[i]);
+		else
+		{
+			result = add_char_to_string(temp, str[i]);
+			free(temp);  // 기존 temp 해제
+			temp = result;
+			if (!temp)
+				return (NULL);
+		}
 	}
 	return (temp);
 }

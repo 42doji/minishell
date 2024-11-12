@@ -12,29 +12,26 @@
 
 #include "minishell.h"
 
-void	free_fd_list(t_minishell *mini)
-{
-	t_command	**temp;
-	t_file		*file;
-	t_fd		*tmp;
-	t_fd		*fd;
-	int			i;
 
-	i = -1;
-	fd = mini->fd;
-	temp = mini->parsed;
-	while (temp[++i])
+void free_fd_list(t_minishell *mini)
+{
+	t_fd *current;
+	t_fd *next;
+
+	if (!mini || !mini->fd)
+		return;
+
+	current = mini->fd;
+	while (current)
 	{
-		file = temp[i]->file;
-		while (file)
-		{
-			tmp = fd->next;
-			free(fd);
-			fd = tmp;
-			file = file->next;
-		}
+		next = current->next;
+		if (current->in >= 0)
+			close(current->in);
+		if (current->out >= 0)
+			close(current->out);
+		free(current);
+		current = next;
 	}
-	free(fd);
 	mini->fd = NULL;
 }
 

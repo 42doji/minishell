@@ -20,25 +20,30 @@ static void	write_here_doc(int pipe_fd, char *str)
 	write(pipe_fd, "\n", 1);
 }
 
-static void	exec_here_doc(char **env, int pipe_fd, t_file **file, char *str)
+void exec_here_doc(char **env, int pipe_fd, t_file **file, char *str)
 {
+	char *tmp;
+
 	while (1)
 	{
 		str = readline("> ");
 		if (!str)
 		{
 			print_error((*file)->name, ": Delimeter Not found\n", 0);
-			free(str);
-			break ;
+			break;
 		}
+
 		if (ft_strcmp(str, (*file)->name) == 0)
 		{
-			break ;
+			free(str);  // 여기에 free 추가
+			break;
 		}
-		str = search_expansion(env, str);
+		tmp = search_expansion(env, str);
+		free(str);  // readline으로 할당된 메모리 해제
+
 		if ((*file)->next == NULL || (*file)->next->type != HERE_DOC)
-			write_here_doc(pipe_fd, str);
-		free(str);
+			write_here_doc(pipe_fd, tmp);
+		free(tmp);  // expanded string 해제
 	}
 }
 

@@ -12,12 +12,16 @@
 
 #include "minishell.h"
 
-void	dup_fds(t_minishell *mini)
+void dup_fds(t_minishell *mini)
 {
-	if (mini->parsed[0]->args[0])
+	mini->in = -1;
+	mini->in2 = -1;
+	mini->out = -1;
+	mini->out2 = -1;
+	if (mini->parsed[0] && mini->parsed[0]->args[0])
 	{
-		mini->parsed[0]->in_file = dup(mini->in);
-		mini->parsed[0]->out_file = dup(mini->out);
+		mini->parsed[0]->in_file = dup(STDIN_FILENO);
+		mini->parsed[0]->out_file = dup(STDOUT_FILENO);
 	}
 	mini->in = dup(STDIN_FILENO);
 	mini->in2 = dup(STDIN_FILENO);

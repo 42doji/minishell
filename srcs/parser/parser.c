@@ -12,15 +12,20 @@
 
 #include "minishell.h"
 
-static void	create_out_dup_list(t_minishell *mini)
+static void create_out_dup_list(t_minishell *mini)
 {
-	t_fd		*fd;
-	t_command	**temp;
-	t_file		*file;
-	int			i;
+	t_fd        *fd;
+	t_command   **temp;
+	t_file      *file;
+	int         i;
 
 	i = -1;
 	fd = (t_fd *)malloc(sizeof(t_fd));
+	if (!fd)
+		return;
+	fd->in = -1;
+	fd->out = -1;
+	fd->next = NULL;
 	mini->fd = fd;
 	temp = mini->parsed;
 	while (temp[++i])
@@ -28,13 +33,21 @@ static void	create_out_dup_list(t_minishell *mini)
 		file = temp[i]->file;
 		while (file)
 		{
-			fd->out = dup(STDOUT_FILENO);
 			fd->in = dup(STDIN_FILENO);
+			fd->out = dup(STDOUT_FILENO);
 			if (file->next || temp[i + 1])
+			{
 				fd->next = (t_fd *)malloc(sizeof(t_fd));
-			else
+				if (!fd->next)
+				{
+					free_fd_list(mini);
+					return;
+				}
+				fd = fd->next;
+				fd->in = -1;
+				fd->out = -1;
 				fd->next = NULL;
-			fd = fd->next;
+			}
 			file = file->next;
 		}
 	}
