@@ -115,30 +115,53 @@ static char	*check_string(t_minishell *mini, char *str, int *i)
 	}
 }
 
-void	replace_env_var(t_minishell *mini)
+static char *process_string(t_minishell *mini, int i, int *j)
 {
-	char	*new_str;
-	char	*temp;
-	char	*check_str;
-	int		i;
-	int		j;
+	char *temp;
+	char *new_str;
+	char *check_str;
+
+	temp = ft_calloc(1, sizeof(char));
+	if (!temp)
+		return (NULL);
+	while (mini->input[i][*j])
+	{
+		check_str = check_string(mini, mini->input[i], j);
+		if (!check_str || !(new_str = ft_strjoin(temp, check_str)))
+		{
+			free(temp);
+			free(check_str);
+			return (NULL);
+		}
+		free(temp);
+		free(check_str);
+		temp = new_str;
+	}
+	return (temp);
+}
+
+static void handle_heredoc(t_minishell *mini, int *i)
+{
+	if (*i > 0 && mini->input[*i] &&
+		ft_strcmp(mini->input[*i - 1], "<<") == 0)
+		(*i)++;
+}
+
+void replace_env_var(t_minishell *mini)
+{
+	char *temp;
+	int i;
+	int j;
 
 	i = 0;
 	while (mini->input[i])
 	{
 		j = 0;
-		temp = ft_calloc(1, sizeof(char));
-		while (mini->input[i][j])
-		{
-			check_str = check_string(mini, mini->input[i], &j);
-			new_str = ft_strjoin(temp, check_str);
-			free(temp);
-			temp = new_str;
-			free(check_str);
-		}
+		temp = process_string(mini, i, &j);
+		if (!temp)
+			return;
 		replace_string(&mini->input[i], &temp);
 		i++;
-		if (ft_strcmp(mini->input[i - 1], "<<") == 0 && mini->input[i] != NULL)
-			i++;
+		handle_heredoc(mini, &i);
 	}
 }

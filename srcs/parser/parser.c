@@ -12,41 +12,64 @@
 
 #include "minishell.h"
 
+static int init_new_fd(t_fd **fd)
+{
+	*fd = (t_fd *)malloc(sizeof(t_fd));
+	if (!(*fd))
+		return (0);
+	(*fd)->in = -1;
+	(*fd)->out = -1;
+	(*fd)->next = NULL;
+	return (1);
+}
+
+static int setup_fd_io(t_fd *fd)
+{
+	fd->in = dup(STDIN_FILENO);
+	if (fd->in == -1)
+		return (0);
+	fd->out = dup(STDOUT_FILENO);
+	if (fd->out == -1)
+	{
+		close(fd->in);
+		return (0);
+	}
+	return (1);
+}
+
+static int handle_fd_next(t_fd **fd, t_file *file, t_command **temp, int i)
+{
+	if (file->next || temp[i + 1])
+	{
+		(*fd)->next = (t_fd *)malloc(sizeof(t_fd));
+		if (!(*fd)->next)
+			return (0);
+		*fd = (*fd)->next;
+		(*fd)->in = -1;
+		(*fd)->out = -1;
+		(*fd)->next = NULL;
+	}
+	return (1);
+}
+
 static void create_out_dup_list(t_minishell *mini)
 {
-	t_fd        *fd;
-	t_command   **temp;
-	t_file      *file;
-	int         i;
+	t_fd *fd;
+	int i;
 
-	i = -1;
-	fd = (t_fd *)malloc(sizeof(t_fd));
-	if (!fd)
+	if (!init_new_fd(&fd))
 		return;
-	fd->in = -1;
-	fd->out = -1;
-	fd->next = NULL;
 	mini->fd = fd;
-	temp = mini->parsed;
-	while (temp[++i])
+	i = -1;
+	while (mini->parsed[++i])
 	{
-		file = temp[i]->file;
+		t_file *file = mini->parsed[i]->file;
 		while (file)
 		{
-			fd->in = dup(STDIN_FILENO);
-			fd->out = dup(STDOUT_FILENO);
-			if (file->next || temp[i + 1])
+			if (!setup_fd_io(fd) || !handle_fd_next(&fd, file, mini->parsed, i))
 			{
-				fd->next = (t_fd *)malloc(sizeof(t_fd));
-				if (!fd->next)
-				{
-					free_fd_list(mini);
-					return;
-				}
-				fd = fd->next;
-				fd->in = -1;
-				fd->out = -1;
-				fd->next = NULL;
+				free_fd_list(mini);
+				return;
 			}
 			file = file->next;
 		}

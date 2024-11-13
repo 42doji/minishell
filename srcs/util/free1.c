@@ -16,8 +16,13 @@ static void free_command_content(t_command *cmd)
 {
 	int j;
 
+	if (!cmd)
+		return;
 	if (cmd->cmd)
+	{
 		free(cmd->cmd);
+		cmd->cmd = NULL;
+	}
 	j = -1;
 	if (cmd->args)
 	{
@@ -33,15 +38,20 @@ static void free_command_content(t_command *cmd)
 
 static void free_file_list(t_file *file)
 {
-	t_file *tmp;
+	t_file *current;
+	t_file *next;
 
-	while (file != NULL)
+	current = file;
+	while (current)
 	{
-		tmp = file->next;
-		if (file->name)
-			free(file->name);
-		free(file);
-		file = tmp;
+		next = current->next;
+		if (current->name)
+		{
+			free(current->name);
+			current->name = NULL;
+		}
+		free(current);
+		current = next;
 	}
 }
 
@@ -49,12 +59,17 @@ static void free_parser(t_minishell *mini, t_command **parsed)
 {
 	int i;
 
+	if (!mini || !parsed)
+		return;
 	i = -1;
-	while (parsed && parsed[++i])
+	while (parsed[++i])
 	{
-		free_command_content(parsed[i]);
-		free_file_list(parsed[i]->file);
-		free(parsed[i]);
+		if (parsed[i])
+		{
+			free_command_content(parsed[i]);
+			free_file_list(parsed[i]->file);
+			free(parsed[i]);
+		}
 	}
 	free(parsed);
 	mini->parsed = NULL;
@@ -62,17 +77,22 @@ static void free_parser(t_minishell *mini, t_command **parsed)
 
 static void free_lexer(t_minishell *mini, t_token *token)
 {
-	t_token *tmp;
 	t_token *current;
+	t_token *next;
 
+	if (!mini || !token)
+		return;
 	current = token;
 	while (current)
 	{
-		tmp = current->next;
+		next = current->next;
 		if (current->value)
+		{
 			free(current->value);
+			current->value = NULL;
+		}
 		free(current);
-		current = tmp;
+		current = next;
 	}
 	mini->token = NULL;
 }

@@ -12,19 +12,48 @@
 
 #include "minishell.h"
 
-t_command	*create_command(int in_file, int out_file)
+static int init_cmd_memory(t_command **cmd)
 {
-	t_command	*cmd;
+	*cmd = (t_command *)malloc(sizeof(t_command));
+	if (!(*cmd))
+		return (0);
 
-	cmd = (t_command *)malloc(sizeof(t_command));
+	(*cmd)->cmd = ft_calloc(2, sizeof(char));
+	if (!(*cmd)->cmd)
+	{
+		free(*cmd);
+		return (0);
+	}
+
+	(*cmd)->args = ft_calloc(2, sizeof(char *));
+	if (!(*cmd)->args)
+	{
+		free((*cmd)->cmd);
+		free(*cmd);
+		return (0);
+	}
+	return (1);
+}
+
+static void init_cmd_values(t_command *cmd, int in_file, int out_file)
+{
+	cmd->cmd[0] = '\0';
+	cmd->args[0] = NULL;
 	cmd->exec = 0;
 	cmd->in_file = in_file;
 	cmd->out_file = out_file;
-	cmd->cmd = ft_calloc(2, sizeof(char));
 	cmd->prev = NULL;
 	cmd->next = NULL;
 	cmd->file = NULL;
-	cmd->args = ft_calloc(2, sizeof(char *));
+}
+
+t_command *create_command(int in_file, int out_file)
+{
+	t_command *cmd;
+
+	if (!init_cmd_memory(&cmd))
+		return (NULL);
+	init_cmd_values(cmd, in_file, out_file);
 	return (cmd);
 }
 
