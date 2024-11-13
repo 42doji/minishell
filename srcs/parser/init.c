@@ -18,7 +18,8 @@ void	initialize_shell(t_minishell *mini)
 
 	mini->flag2 = 0;
 	mini->error = 0;
-	add_history(mini->str);
+    if (mini->str)
+		add_history(mini->str);
 	lexer(mini);
 	if (check_unfinished_quote(mini->input) == 1)
 		return ;

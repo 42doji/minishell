@@ -14,6 +14,14 @@
 
 int	g_exit_status;
 
+void    cleanup_readline(void)
+{
+	clear_history();
+	rl_clear_history();
+	rl_free_line_state();
+	rl_cleanup_after_signal();
+}
+
 int	check_if_empty(char *str)
 {
 	int	i;
@@ -46,6 +54,7 @@ int	main(int argc, char **argv, char **envp)
 		if (check_if_empty(str) == 1)
 			continue ;
 		initialize_shell(&mini);
+		cleanup_readline();
 		free_all(&mini);
 	}
 }
