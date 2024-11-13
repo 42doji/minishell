@@ -1,0 +1,44 @@
+{
+   readline_memory_leaks
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:readline
+   ...
+}
+
+{
+   readline_add_history_leaks
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:add_history
+   ...
+}
+
+{
+   readline_initialize_leaks
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:rl_initialize
+   ...
+}
+
+{
+   libreadline_general_leaks
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*/libreadline.so.*
+   ...
+}
+
+{
+   libtinfo_general_leaks
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*/libtinfo.so.*
+   ...
+}

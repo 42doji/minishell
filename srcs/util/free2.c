@@ -13,6 +13,7 @@
 #include "minishell.h"
 
 
+
 void free_fd_list(t_minishell *mini)
 {
 	t_fd *current;
@@ -20,7 +21,6 @@ void free_fd_list(t_minishell *mini)
 
 	if (!mini || !mini->fd)
 		return;
-
 	current = mini->fd;
 	while (current)
 	{
@@ -35,30 +35,32 @@ void free_fd_list(t_minishell *mini)
 	mini->fd = NULL;
 }
 
-void	free_path_and_env(t_minishell *mini)
+static void free_paths(char **paths)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	if (mini->paths)
+	if (paths)
 	{
-		while (mini->paths[i])
-		{
-			free(mini->paths[i]);
-			i++;
-		}
-		free(mini->paths);
+		while (paths[i])
+			free(paths[i++]);
+		free(paths);
 	}
+}
+
+void free_path_and_env(t_minishell *mini)
+{
+	int i;
+
+	free_paths(mini->paths);
 	mini->paths = NULL;
 	i = 0;
 	if (mini->env)
 	{
 		while (mini->env[i])
-		{
-			free(mini->env[i]);
-			i++;
-		}
+			free(mini->env[i++]);
 		free(mini->env);
 	}
 	mini->env = NULL;
 }
+
