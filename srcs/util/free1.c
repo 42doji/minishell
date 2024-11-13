@@ -86,22 +86,36 @@ static void	free_lexer(t_minishell *mini, t_token *token)
 	mini->token = NULL;
 }
 
-void	free_all(t_minishell *mini)
+void    free_all(t_minishell *mini)
 {
 	if (!mini)
-		return ;
+		return;
 	if (mini->str)
 	{
 		free(mini->str);
 		mini->str = NULL;
 	}
-	if (mini->input)
+	if (mini->input != NULL)
+	{
 		free_minishell(mini);
-	if (mini->token)
+		mini->input = NULL;
+	}
+	if (mini->token != NULL)
+	{
 		free_lexer(mini, mini->token);
-	if (mini->fd)
+		mini->token = NULL;
+	}
+	if (mini->fd != NULL)
+	{
 		free_fd_list(mini);
-	if (mini->parsed)
+		mini->fd = NULL;
+	}
+	if (mini->parsed != NULL)
+	{
 		free_parser(mini, mini->parsed);
+		mini->parsed = NULL;
+	}
+	if (mini->paths != NULL && mini->env != NULL)
+		free_path_and_env(mini);
 	mini->n_tokens2 = 0;
 }

@@ -30,13 +30,24 @@ static char	**dup_env_var(char **ev)
 	return (env_copy);
 }
 
-void	create_minishell(t_minishell *mini, char **ev)
+void    create_minishell(t_minishell *mini, char **ev)
 {
+	// 전체 구조체를 0으로 초기화
+	memset(mini, 0, sizeof(t_minishell));
+
 	errno = 0;
 	mini->env = dup_env_var(ev);
-	mini->paths = ft_split(getenv("PATH"), ':');
+
+	char *path = getenv("PATH");
+	if (path)
+		mini->paths = ft_split(path, ':');
+
+	// 명시적으로 NULL로 초기화
 	mini->token = NULL;
 	mini->parsed = NULL;
 	mini->fd = NULL;
+	mini->str = NULL;
+	mini->input = NULL;  // 이 부분 추가
 	mini->error = 0;
+	mini->n_tokens2 = 0;
 }
