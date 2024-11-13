@@ -29,19 +29,29 @@ void dup_fds(t_minishell *mini)
 	mini->out2 = dup(STDOUT_FILENO);
 }
 
-char	*get_shell_env(char **env, char *str)
+char    *get_shell_env(char **env, char *str)
 {
-	int	i;
+	int    i;
 
+	if (!env || !str)
+		return (NULL);
+	if (!*str)
+		return (NULL);
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strncmp(env[i], str, ft_strlen(str)) == 0)
-			return (env_var(env[i], ft_strlen(str)));
+		size_t env_len = ft_strlen(env[i]);
+		size_t str_len = ft_strlen(str);
+		if (env_len >= str_len)
+		{
+			if (ft_strncmp(env[i], str, str_len) == 0)
+				return (env_var(env[i], str_len));
+		}
 		i++;
 	}
 	return (NULL);
 }
+
 
 int	check_if_path(char *str)
 {
