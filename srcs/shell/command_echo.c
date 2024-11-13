@@ -35,11 +35,10 @@ static void	check_n_option(char **input, int *i, int *flag)
 			return ;
 	}
 }
-
-void	command_echo(char **input)
+void    command_echo(char **input)
 {
-	int	i;
-	int	flag;
+	int    i;
+	int    flag;
 
 	i = 1;
 	flag = 0;

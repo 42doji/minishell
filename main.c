@@ -12,19 +12,23 @@
 
 #include "minishell.h"
 
-int	g_exit_status;
+int g_exit_status;
 
 void    cleanup_readline(void)
 {
-	clear_history();
-	rl_clear_history();
-	rl_free_line_state();
-	rl_cleanup_after_signal();
+	rl_set_prompt("minishell$ ");
 }
 
-int	check_if_empty(char *str)
+void    final_cleanup(void)
 {
-	int	i;
+	clear_history();
+	rl_clear_history();
+	cleanup_readline();
+}
+
+int check_if_empty(char *str)
+{
+	int    i;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -36,10 +40,10 @@ int	check_if_empty(char *str)
 	return (1);
 }
 
-int	main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
-	char		*str;
-	t_minishell	mini;
+	char          *str;
+	t_minishell    mini;
 
 	(void)argc;
 	(void)argv;
@@ -51,10 +55,14 @@ int	main(int argc, char **argv, char **envp)
 		str = readline(PROMPT);
 		mini.str = str;
 		ctrl_d(&mini);
-		if (check_if_empty(str) == 1)
-			continue ;
-		initialize_shell(&mini);
+		if (!check_if_empty(str))
+		{
+			add_history(str);
+			initialize_shell(&mini);
+		}
 		cleanup_readline();
 		free_all(&mini);
 	}
+	final_cleanup();
+	return (0);
 }
