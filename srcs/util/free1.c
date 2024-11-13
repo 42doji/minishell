@@ -1,42 +1,46 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   free1.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 10:45:38 by doji              #+#    #+#             */
-/*   Updated: 2024/11/10 15:53:23 by junmin           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-static void free_command_content(t_command *cmd)
+void	free_command_string(char **cmd_str)
 {
-	int j;
-
-	if (!cmd)
-		return;
-	if (cmd->cmd)
+	if (*cmd_str)
 	{
-		free(cmd->cmd);
-		cmd->cmd = NULL;
+		free(*cmd_str);
+		*cmd_str = NULL;
 	}
-	j = -1;
-	if (cmd->args)
-	{
-		while (cmd->args[++j])
-			free(cmd->args[j]);
-		free(cmd->args);
-	}
-	if (cmd->in_file > 2)
-		close(cmd->in_file);
-	if (cmd->out_file > 2)
-		close(cmd->out_file);
 }
 
-static void free_file_list(t_file *file)
+void	free_command_args(char ***args)
+{
+	int j = 0;
+
+	if (*args)
+	{
+		while ((*args)[j])
+		{
+			free((*args)[j]);
+			(*args)[j] = NULL;
+			j++;
+		}
+		free(*args);
+		*args = NULL;
+	}
+}
+
+void close_command_files(int *in_file, int *out_file)
+{
+	if (*in_file > 2)
+	{
+		close(*in_file);
+		*in_file = -1;
+	}
+	if (*out_file > 2)
+	{
+		close(*out_file);
+		*out_file = -1;
+	}
+}
+
+void free_file_list(t_file *file)
 {
 	t_file *current;
 	t_file *next;
@@ -45,107 +49,169 @@ static void free_file_list(t_file *file)
 	while (current)
 	{
 		next = current->next;
-		if (current->name)
-		{
-			free(current->name);
-			current->name = NULL;
-		}
+		free_command_string(&current->name);
 		free(current);
 		current = next;
 	}
 }
 
-static void free_parser(t_minishell *mini, t_command **parsed)
+void free_fd_list(t_minishell *mini)
+{
+	t_fd *current;
+	t_fd *next;
+
+	if (!mini || !mini->fd)
+		return;
+	current = mini->fd;
+	while (current)
+	{
+		next = current->next;
+		if (current->in >= 0)
+			close(current->in);
+		if (current->out >= 0)
+			close(current->out);
+		free(current);
+		current = next;
+	}
+	mini->fd = NULL;
+}
+
+static void free_paths(char **paths)
 {
 	int i;
 
-	if (!mini || !parsed)
-		return;
-	i = -1;
-	while (parsed[++i])
+	i = 0;
+	if (paths)
 	{
-		if (parsed[i])
-		{
-			free_command_content(parsed[i]);
-			free_file_list(parsed[i]->file);
-			free(parsed[i]);
-		}
+		while (paths[i])
+			free(paths[i++]);
+		free(paths);
 	}
-	free(parsed);
+}
+
+void free_path(t_minishell *mini)
+{
+	free_paths(mini->paths);
+	mini->paths = NULL;
+}
+
+void free_env(t_minishell *mini)
+{
+	int i;
+
+	i = 0;
+	if (mini->env)
+	{
+		while (mini->env[i])
+			free(mini->env[i++]);
+		free(mini->env);
+	}
+	mini->env = NULL;
+}
+
+void free_path_and_env(t_minishell *mini)
+{
+	free_path(mini);
+	free_env(mini);
+}
+
+static void free_command_content(t_command *cmd)
+{
+	if (!cmd)
+		return;
+	free_command_string(&cmd->cmd);
+	free_command_args(&cmd->args);
+	free_file_list(cmd->file);
+	cmd->file = NULL;
+	close_command_files(&cmd->in_file, &cmd->out_file);
+}
+
+static void free_parser(t_minishell *mini)
+{
+	int i;
+
+	if (!mini || !mini->parsed)
+		return;
+	for (i = 0; mini->parsed[i]; i++)
+	{
+		free_command_content(mini->parsed[i]);
+		free(mini->parsed[i]);
+		mini->parsed[i] = NULL;
+	}
+	free(mini->parsed);
 	mini->parsed = NULL;
 }
 
-static void free_lexer(t_minishell *mini, t_token *token)
+static void free_lexer(t_minishell *mini)
 {
 	t_token *current;
 	t_token *next;
 
-	if (!mini || !token)
+	if (!mini || !mini->token)
 		return;
-	current = token;
+	current = mini->token;
 	while (current)
 	{
 		next = current->next;
-		if (current->value)
-		{
-			free(current->value);
-			current->value = NULL;
-		}
+		free_command_string(&current->value);
 		free(current);
 		current = next;
 	}
 	mini->token = NULL;
 }
 
-static void free_minishell(t_minishell *mini)
+
+
+
+void free_minishell_input(t_minishell *mini)
 {
 	int i;
 
-	i = 0;
-	while (mini->input[i])
-		free(mini->input[i++]);
+	if (!mini->input)
+		return;
+
+	for (i = 0; mini->input[i]; i++)
+	{
+		free(mini->input[i]);
+		mini->input[i] = NULL;
+	}
 	free(mini->input);
 	mini->input = NULL;
 }
 
-void	free_open_pipe(int **pipe)
+void free_open_pipe(int **pipe)
 {
-	int	i;
+	int i = 0;
 
-	i = 0;
+	if (!pipe)
+		return;
+
 	while (pipe[i])
 	{
 		free(pipe[i]);
+		pipe[i] = NULL;
 		i++;
 	}
 	free(pipe);
+	pipe = NULL;
 }
 
-
-static void free_core_components(t_minishell *mini)
+void free_core_components(t_minishell *mini)
 {
 	if (mini->fd)
+	{
 		free_fd_list(mini);
-	if (mini->parsed)
-		free_parser(mini, mini->parsed);
-	if (mini->token)
-		free_lexer(mini, mini->token);
-	if (mini->input)
-		free_minishell(mini);
+		mini->fd = NULL;
+	}
+	free_parser(mini);
+	free_lexer(mini);
+	free_minishell_input(mini);
 }
-
 
 void free_all(t_minishell *mini)
 {
 	if (!mini)
 		return;
 	free_core_components(mini);
-	if (mini->str)
-	{
-		free(mini->str);
-		mini->str = NULL;
-	}
-	if (mini->paths || mini->env)
-		free_path_and_env(mini);
-	mini->n_tokens2 = 0;
+	free_path_and_env(mini);
 }

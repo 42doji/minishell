@@ -74,6 +74,7 @@ static void create_out_dup_list(t_minishell *mini)
 			file = file->next;
 		}
 	}
+
 }
 
 static void	process_redirection(t_token **token, t_command **cur)

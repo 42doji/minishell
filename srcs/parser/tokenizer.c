@@ -35,29 +35,34 @@ static void	init_token(t_token *token)
 	token->next = NULL;
 }
 
-void	tokenizer(t_minishell *mini)
+void tokenizer(t_minishell *mini)
 {
-	int		i;
-	t_token	*new;
-	t_token	*temp;
+	int i;
+	t_token *new;
+	t_token *temp = NULL;
 
 	i = 0;
-	temp = NULL;
-	new = malloc(sizeof(t_token));
 	while (mini->input[i])
 	{
+		new = malloc(sizeof(t_token));
+		if (!new)
+			return; // malloc 실패 시 오류 처리
 		init_token(new);
 		new->value = ft_strdup(mini->input[i]);
 		set_token_type(mini, i, new);
 		new->index = i;
-		if (temp != NULL)
-			new->prev = temp;
+
+		// 연결 리스트에 추가
+		if (temp)
+			temp->next = new;
 		else
 			mini->token = new;
-		if (mini->input[i + 1])
-			new->next = malloc(sizeof(t_token));
+
+		new->prev = temp;
 		temp = new;
-		new = new->next;
 		i++;
 	}
+	// 연결 리스트 끝 표시
+	if (temp)
+		temp->next = NULL;
 }

@@ -12,12 +12,9 @@
 
 #include "minishell.h"
 
-void	replace_string(char **old_str, char **new_str)
-{
-	free(*old_str);
-	*old_str = ft_strdup(*new_str);
-	free(*new_str);
-}
+
+
+
 
 int	check_quote(t_minishell *mini, int k, t_token *token)
 {

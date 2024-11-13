@@ -14,25 +14,23 @@
 
 static int init_cmd_memory(t_command **cmd)
 {
-	*cmd = (t_command *)malloc(sizeof(t_command));
-	if (!(*cmd))
-		return (0);
+	*cmd = malloc(sizeof(t_command));
+	if (!*cmd)
+		return 0;
 
 	(*cmd)->cmd = ft_calloc(2, sizeof(char));
-	if (!(*cmd)->cmd)
-	{
+	if (!(*cmd)->cmd) {
 		free(*cmd);
-		return (0);
+		return 0;
 	}
 
 	(*cmd)->args = ft_calloc(2, sizeof(char *));
-	if (!(*cmd)->args)
-	{
+	if (!(*cmd)->args) {
 		free((*cmd)->cmd);
 		free(*cmd);
-		return (0);
+		return 0;
 	}
-	return (1);
+	return 1;
 }
 
 static void init_cmd_values(t_command *cmd, int in_file, int out_file)

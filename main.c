@@ -17,13 +17,9 @@ int g_exit_status;
 void    cleanup_readline(void)
 {
 	rl_set_prompt("minishell$ ");
-}
-
-void    final_cleanup(void)
-{
-	clear_history();
-	rl_clear_history();
-	cleanup_readline();
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 int check_if_empty(char *str)
@@ -63,6 +59,5 @@ int main(int argc, char **argv, char **envp)
 		cleanup_readline();
 		free_all(&mini);
 	}
-	final_cleanup();
 	return (0);
 }

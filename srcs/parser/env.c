@@ -115,7 +115,7 @@ static char	*check_string(t_minishell *mini, char *str, int *i)
 	}
 }
 
-static char *process_string(t_minishell *mini, int i, int *j)
+char *process_string(t_minishell *mini, int i, int *j)
 {
 	char *temp;
 	char *new_str;
@@ -123,21 +123,23 @@ static char *process_string(t_minishell *mini, int i, int *j)
 
 	temp = ft_calloc(1, sizeof(char));
 	if (!temp)
-		return (NULL);
+		return NULL;
 	while (mini->input[i][*j])
 	{
 		check_str = check_string(mini, mini->input[i], j);
-		if (!check_str || !(new_str = ft_strjoin(temp, check_str)))
+		if (!check_str)
 		{
 			free(temp);
-			free(check_str);
-			return (NULL);
+			return NULL;
 		}
-		free(temp);
-		free(check_str);
+		new_str = ft_strjoin(temp, check_str);
+		free(temp);       // 기존 temp 메모리 해제
+		free(check_str);   // 임시 문자열 해제
+		if (!new_str)
+			return NULL;
 		temp = new_str;
 	}
-	return (temp);
+	return temp;
 }
 
 static void handle_heredoc(t_minishell *mini, int *i)
@@ -145,6 +147,13 @@ static void handle_heredoc(t_minishell *mini, int *i)
 	if (*i > 0 && mini->input[*i] &&
 		ft_strcmp(mini->input[*i - 1], "<<") == 0)
 		(*i)++;
+}
+
+void replace_string(char **old_str, char **new_str)
+{
+	free(*old_str);              // 기존 문자열 해제
+	*old_str = *new_str;          // 새로운 문자열 할당
+	*new_str = NULL;               // new_str 포인터 초기화
 }
 
 void replace_env_var(t_minishell *mini)
@@ -165,3 +174,7 @@ void replace_env_var(t_minishell *mini)
 		handle_heredoc(mini, &i);
 	}
 }
+
+
+
+
