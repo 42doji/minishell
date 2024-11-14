@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 21:15:05 by doji              #+#    #+#             */
-/*   Updated: 2024/11/10 16:27:50 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/14 21:45:16 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	exec_here_doc(char **env, int pipe_fd, t_file **file, char *str)
 		}
 		if (ft_strcmp(str, (*file)->name) == 0)
 		{
+			free(str);
 			break ;
 		}
 		str = search_expansion(env, str);
