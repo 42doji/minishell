@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 21:15:05 by doji              #+#    #+#             */
-/*   Updated: 2024/11/14 21:46:48 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/14 21:51:23 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	write_here_doc(int pipe_fd, char *str)
 
 static void	exec_here_doc(char **env, int pipe_fd, t_file **file, char *str)
 {
+	char	*expansion;
+
 	while (1)
 	{
 		str = readline("> ");
@@ -36,10 +38,11 @@ static void	exec_here_doc(char **env, int pipe_fd, t_file **file, char *str)
 			free(str);
 			break ;
 		}
-		str = search_expansion(env, str);
+		expansion = search_expansion(env, str);
 		if ((*file)->next == NULL || (*file)->next->type != HERE_DOC)
 			write_here_doc(pipe_fd, str);
 		free(str);
+		free(expansion);
 	}
 }
 
