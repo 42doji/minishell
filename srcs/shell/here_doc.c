@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 21:15:05 by doji              #+#    #+#             */
-/*   Updated: 2024/11/14 21:45:16 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/14 21:46:48 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	here_doc(t_minishell *m, t_command *cmd, t_file **file, t_fd **fd)
 		close(pipe_fd[0]);
 		exec_here_doc(env, pipe_fd[1], file, str);
 		close(pipe_fd[1]);
+		free_all(m);
+		free_path_and_env(m);
 		exit(g_exit_status);
 	}
 	else
