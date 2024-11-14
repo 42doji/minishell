@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:00:53 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 16:03:46 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/14 20:19:05 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,12 @@ int	main(int argc, char **argv, char **envp)
 		mini.str = str;
 		ctrl_d(&mini);
 		if (check_if_empty(str) == 1)
+		{
+			if (mini.str)
+				free(mini.str);
+			mini.str = NULL;
 			continue ;
+		}
 		initialize_shell(&mini);
 		free_all(&mini);
 	}
