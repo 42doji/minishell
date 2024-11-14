@@ -26,7 +26,7 @@ static void	create_out_dup_list(t_minishell *mini)
 	while (temp[++i])
 	{
 		file = temp[i]->file;
-		while (file)
+		while (file && fd)
 		{
 			fd->out = dup(STDOUT_FILENO);
 			fd->in = dup(STDIN_FILENO);

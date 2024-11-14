@@ -88,8 +88,6 @@ void	here_doc(t_minishell *m, t_command *cmd, t_file **file, t_fd **fd)
 		close(pipe_fd[0]);
 		exec_here_doc(env, pipe_fd[1], file, str);
 		close(pipe_fd[1]);
-		free_all(m);
-		free_path_and_env(m);
 		exit(g_exit_status);
 	}
 	else
