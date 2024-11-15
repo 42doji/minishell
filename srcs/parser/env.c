@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:42:37 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/15 23:57:15 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/16 00:11:36 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,9 @@ void	replace_env_var(t_minishell *mini, int i)
 	char	*check_str;
 	int		j;
 
-	if (i > 0 &&
-		ft_strcmp(mini->input[i - 1], "<<") == 0 &&
-		mini->input[i] != NULL)
+	if (i > 0
+		&& ft_strcmp(mini->input[i - 1], "<<") == 0
+		&& mini->input[i] != NULL)
 		return ;
 	j = 0;
 	temp = ft_calloc(1, sizeof(char));

@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:05 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/15 23:52:16 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/16 00:12:43 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int			count_and_or_tokens(t_token *command_token_list);
 int			cal_input_token(t_minishell *mini);
 int			has_syntax_error(t_token *my_tokens);
 t_command	*create_command(int in_file, int out_file);
+char		*string_join_and_free(char *str1, char *str2);
 
 #endif
