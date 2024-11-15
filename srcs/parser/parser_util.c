@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:43:50 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/08 16:43:49 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/15 22:31:23 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,17 @@ char	*check_quote_double(char **env, char *input, int *i)
 		{
 			(*i)++;
 			var = handle_env_var(env, input, i);
-			result = ft_strjoin(result, var);
+			str = result;
+			result = ft_strjoin(str, var);
 			free(var);
+			free(str);
 		}
 		if (!input[*i] || input[*i] == '"')
 			return (result);
-		str = char_to_string(input[*i]);
-		result = ft_strjoin(result, str);
+		var = char_to_string(input[*i]);
+		str = result;
+		result = ft_strjoin(str, var);
+		free(var);
 		free(str);
 		(*i)++;
 	}
