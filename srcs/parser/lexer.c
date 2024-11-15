@@ -6,13 +6,13 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:43:34 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/15 21:11:20 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/15 21:50:48 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	save_token_special(char *str, int i)
+static int	get_index_next_arg(char *str, int i)
 {
 	while (str[i] && !is_ifs(str[i]))
 	{
@@ -44,21 +44,21 @@ static void	save_token(t_minishell *mi)
 {
 	int	i;
 	int	j;
-	int	st;
+	// int	st;
 
 	i = 0;
 	while (mi->index < mi->n_tokens)
 	{
-		st = i;
+		// st = i;
 		while (mi->str[i] && is_ifs(mi->str[i]))
 			i++;
 		j = i;
 		if (mi->str[i] && !is_ifs(mi->str[i]))
 		{
-			i = save_token_special(mi->str, i);
-			if (mi->index == 0 && st != j)
-				mi->input[mi->index] = ft_substr(mi->str, st, (i - st) + 1);
-			else
+			i = get_index_next_arg(mi->str, i);
+			// if (mi->index == 0 && st != j)
+			// 	mi->input[mi->index] = ft_substr(mi->str, st, (i - st) + 1);
+			// else
 				mi->input[mi->index] = ft_substr(mi->str, j, (i - j) + 1);
 		}
 		if (mi->str[i] == '\0')
