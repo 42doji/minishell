@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:42:37 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 15:22:59 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/15 23:57:15 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,30 +115,26 @@ static char	*check_string(t_minishell *mini, char *str, int *i)
 	}
 }
 
-void	replace_env_var(t_minishell *mini)
+void	replace_env_var(t_minishell *mini, int i)
 {
 	char	*new_str;
 	char	*temp;
 	char	*check_str;
-	int		i;
 	int		j;
 
-	i = 0;
-	while (mini->input[i])
+	if (i > 0 &&
+		ft_strcmp(mini->input[i - 1], "<<") == 0 &&
+		mini->input[i] != NULL)
+		return ;
+	j = 0;
+	temp = ft_calloc(1, sizeof(char));
+	while (mini->input[i][j])
 	{
-		j = 0;
-		temp = ft_calloc(1, sizeof(char));
-		while (mini->input[i][j])
-		{
-			check_str = check_string(mini, mini->input[i], &j);
-			new_str = ft_strjoin(temp, check_str);
-			free(temp);
-			temp = new_str;
-			free(check_str);
-		}
-		replace_string(&mini->input[i], &temp);
-		i++;
-		if (ft_strcmp(mini->input[i - 1], "<<") == 0 && mini->input[i] != NULL)
-			i++;
+		check_str = check_string(mini, mini->input[i], &j);
+		new_str = ft_strjoin(temp, check_str);
+		free(check_str);
+		free(temp);
+		temp = new_str;
 	}
+	replace_string(&mini->input[i], &temp);
 }

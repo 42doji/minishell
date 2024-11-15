@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:46:57 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 13:51:01 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/15 23:59:29 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ void	tokenizer(t_minishell *mini)
 	while (mini->input[i])
 	{
 		init_token(new);
-		new->value = ft_strdup(mini->input[i]);
 		set_token_type(mini, i, new);
+		replace_env_var(mini, i);
+		new->value = ft_strdup(mini->input[i]);
 		new->index = i;
 		if (temp != NULL)
 			new->prev = temp;

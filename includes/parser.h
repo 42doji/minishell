@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:05 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/10 16:19:29 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/15 23:52:16 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int			check_unfinished_quote(char **str);
 int			skip_quote(char *str, int i);
-void		replace_env_var(t_minishell *mini);
+void		replace_env_var(t_minishell *mini, int i);
 void		replace_string(char **old_str, char **new_str);
 void		lexer(t_minishell *mini);
 char		*char_to_string(char c);

@@ -6,7 +6,7 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:43:27 by junmin            #+#    #+#             */
-/*   Updated: 2024/11/15 21:11:25 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/15 23:55:28 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	initialize_shell(t_minishell *mini)
 	lexer(mini);
 	if (check_unfinished_quote(mini->input) == 1)
 		return ;
-	replace_env_var(mini);
 	tokenizer(mini);
 	token = mini->token;
 	if (has_syntax_error(token) == 1)
