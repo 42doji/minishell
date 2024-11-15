@@ -6,26 +6,28 @@
 /*   By: junmin <junmin@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 10:35:27 by doji              #+#    #+#             */
-/*   Updated: 2024/11/10 16:31:16 by junmin           ###   ########.fr       */
+/*   Updated: 2024/11/16 00:41:26 by junmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute(t_minishell *mini, char *full_path, char **args)
+static void	execute(t_minishell *mini, char *full_path, char *path, char **args)
 {
 	if (mini->flag2 == 0)
 	{
 		execve(full_path, args, mini->env);
+		print_error(args[0], ": Permission denied\n", 126);
 		free_all(mini);
 		free_path_and_env(mini);
-		print_error(args[0], ": Permission denied\n", 126);
+		free(path);
 		exit(126);
 	}
 	else
 	{
 		free_all(mini);
 		free_path_and_env(mini);
+		free(path);
 		exit(1);
 	}
 }
@@ -107,10 +109,8 @@ void	execute_execve(t_minishell *mini, char **args)
 			exit(g_exit_status);
 		}
 		else
-			execute(mini, total, args);
-		free(total);
+			execute(mini, total, path, args);
 	}
 	else
-		execute(mini, args[0], args);
-	free(path);
+		execute(mini, args[0], path, args);
 }
